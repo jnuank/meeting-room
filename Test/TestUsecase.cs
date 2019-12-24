@@ -11,7 +11,7 @@ namespace modeling_mtg_room.Test
         public void 会議室を予約したら予約が発生する()
         {
             予約情報 じょうほう = new 予約情報();
-            予約 よやく = Reserve.会議室を予約する(じょうほう);
+            予約 よやく = Usecase.Usecase.会議室を予約する(じょうほう);
             Assert.NotNull(よやく);
         }
     }

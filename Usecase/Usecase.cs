@@ -3,9 +3,9 @@ using modeling_mtg_room.Model;
 
 namespace modeling_mtg_room.Usecase
 {
-    public class Reserve
+    public class Usecase
     {
-        private Reserve()
+        private Usecase()
         {
 
         }
