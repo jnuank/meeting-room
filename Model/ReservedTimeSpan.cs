@@ -6,26 +6,36 @@ namespace modeling_mtg_room.Model
     // 予約時間
     public class ReservedTimeSpan : IEquatable<ReservedTimeSpan>
     {
+        // DateTimeを受け取るインターフェース
+        private IDateTime _dateTime;
         // 開始時間
-        private DateTime start;
+        private DateTime _start;
         // 終了時間
-        private DateTime end;
-        public ReservedTimeSpan(DateTime start, DateTime end)
+        private DateTime _end;
+        public ReservedTimeSpan(DateTime start,
+                                DateTime end,
+                                IDateTime dateTime = null)
         {
-            this.start = start;
-            this.end = end;
+            // 日付がDIされていたら、変数に入れる
+            _dateTime = dateTime ?? new ServerDateTime(); 
+
+            _start = start;
+            _end = end;
             // 15分単位でないとエラー
-            if(start.Minute % 15 != 0 || end.Minute % 15 != 0)
+            if(_start.Minute % 15 != 0 || _end.Minute % 15 != 0)
                 throw new ArgumentOutOfRangeException();
-            // start<endとなっていること
-            if(start > end)
+            // _start<_endとなっていること
+            if(_start > _end)
+                throw new ArgumentOutOfRangeException();
+
+            if((_dateTime.Now.AddDays(30)).Date < _start.Date)
                 throw new ArgumentOutOfRangeException();
         }
         public double TimeOfNumber
         {
             get 
             {
-                double diff = (end - start).TotalMinutes / 60;
+                double diff = (_end - _start).TotalMinutes / 60;
                 return TruncateSecondDecimalNumber(diff);
             }
         }
@@ -40,7 +50,7 @@ namespace modeling_mtg_room.Model
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return this.start == other.start && this.end == other.end;
+            return this._start == other._start && this._end == other._end;
         }
     }
 }
