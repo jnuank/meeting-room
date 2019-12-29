@@ -23,13 +23,17 @@ namespace modeling_mtg_room.Model
             _end = end;
             // 15分単位でないとエラー
             if(_start.Minute % 15 != 0 || _end.Minute % 15 != 0)
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentException("15分単位で入力して下さい");
             // _start<_endとなっていること
             if(_start > _end)
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentException("開始時間が終了時間を超えないようにして下さい");
 
             if((_dateTime.Now.AddDays(30)).Date < _start.Date)
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentException("予約は30日後以内にして下さい");
+            
+            if(_start.Hour < 10 || _start.Hour > 19 || 
+                _end.Hour < 10 || _end.Hour > 19)
+                throw new ArgumentException("予約は10時から19時までにして下さい");
         }
         public double TimeOfNumber
         {
