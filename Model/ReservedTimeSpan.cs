@@ -14,8 +14,14 @@ namespace modeling_mtg_room.Model
         {
             this.start = start;
             this.end = end;
+            // 15分単位でないとエラー
+            if(start.Minute % 15 != 0 || end.Minute % 15 != 0)
+                throw new ArgumentOutOfRangeException();
+            // start<endとなっていること
+            if(start > end)
+                throw new ArgumentOutOfRangeException();
         }
-        public double 時間
+        public double TimeOfNumber
         {
             get 
             {
@@ -37,5 +43,4 @@ namespace modeling_mtg_room.Model
             return this.start == other.start && this.end == other.end;
         }
     }
-
 }
