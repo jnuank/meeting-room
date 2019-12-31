@@ -33,13 +33,13 @@ rectangle 予約する時に必要な情報 {
     end note
 }
 
-note right of ReservedTimeSpan
+note right of ReservedTime
 15分単位
 end note
-note bottom of ReservedTimeSpan
+note bottom of ReservedTime
 30日後まで予約できる
 end note
-note bottom of ReservedTimeSpan
+note bottom of ReservedTime
 ReservedTimeSpanは10:00-19:00
 end note
 

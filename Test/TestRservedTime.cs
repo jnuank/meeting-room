@@ -47,6 +47,26 @@ namespace modeling_mtg_room.Test
             ReservedTime rt = new ReservedTime(2019,12,31, 12, minute);
             Assert.Equal(minute, rt.Value.Minute);
         }
+        [Fact]
+        public void 三十一日後の日付で予約をしようとするとエラー()
+        {
+            var dateTime = new Mock<IDateTime>();
+            dateTime.Setup(d => d.Now)
+                .Returns(new DateTime(2020, 1, 1, 0,0,0));
+            Assert.Throws<ArgumentException>(() => 
+            {                
+                ReservedTime rts = new ReservedTime(2020, 2, 1, 10,15, dateTime.Object);
+            });
+        }
         
+        [Fact]
+        public void 三十日後の日付で予約をしようとするとエラーにならない()
+        {
+            var dateTime = new Mock<IDateTime>();
+            dateTime.Setup(d => d.Now)
+                .Returns(new DateTime(2020, 1, 1, 0,0,0));
+            ReservedTime rts = new ReservedTime(2020, 1, 31, 14,0, dateTime.Object);
+            Assert.Equal(0, rts.Value.Minute);
+        }
     }
 }

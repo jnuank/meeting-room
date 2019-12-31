@@ -44,27 +44,6 @@ namespace modeling_mtg_room.Test
             });
         }
 //         [Fact]
-//         public void 三十一日後の日付で予約をしようとするとエラー()
-//         {
-//             var dateTime = new Mock<IDateTime>();
-//             dateTime.Setup(d => d.Now)
-//                 .Returns(new DateTime(2020, 1, 1, 0,0,0));
-//             Assert.Throws<ArgumentException>(() => 
-//             {                
-//                 ReservedTimeSpan rts = new ReservedTimeSpan(new DateTime(2020, 2, 1, 10,15,0), new DateTime(2020, 2, 1, 10,15,0), dateTime.Object);
-//             });
-//         }
-//         [Fact]
-//         public void 三十日後の日付で予約をしようとするとエラーにならない()
-//         {
-//             var dateTime = new Mock<IDateTime>();
-//             dateTime.Setup(d => d.Now)
-//                 .Returns(new DateTime(2020, 1, 1, 0,0,0));
-
-//             ReservedTimeSpan rts = new ReservedTimeSpan(new DateTime(2020, 1, 31, 14,0,0), new DateTime(2020, 1, 31, 15,0,0), dateTime.Object);
-//             Assert.Equal(1.0, rts.TimeOfNumber);
-//         }
-//         [Fact]
 //         public void 十時から十九時まで以外の予約にした場合エラーとなる()
 //         {
 //             var dateTime = new Mock<IDateTime>();
