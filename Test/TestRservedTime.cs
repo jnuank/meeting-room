@@ -28,7 +28,7 @@ namespace modeling_mtg_room.Test
         [InlineData(31)]
         [InlineData(47)]
         [InlineData(23)]
-        [Trait("Category", "不正値パターン")]
+        [Trait("Category", "FailPattern")]
         public void 十五分単位以外の値の場合は生成できないこと(int minute)
         {
             Assert.Throws<ArgumentException>(() => 
@@ -41,7 +41,7 @@ namespace modeling_mtg_room.Test
         [InlineData(30)]
         [InlineData(45)]
         [InlineData(0)]
-        [Trait("Category", "正常値パターン")]
+        [Trait("Category", "UsuallyPattern")]
         public void 十五分単位が生成できること(int minute)
         {
             ReservedTime rt = new ReservedTime(2019,12,31, 12, minute);
