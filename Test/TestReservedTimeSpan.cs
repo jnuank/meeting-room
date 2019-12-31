@@ -17,7 +17,7 @@ namespace modeling_mtg_room.Test
         [Fact]
         public void 十時十五分から十時三十分で登録されたら十五分となること()
         {
-            ReservedTimeSpan じょうほう = new ReservedTimeSpan(new DateTime(2019, 12, 25, 10,15,0), new DateTime(2019, 12, 25, 10,30,0));
+            ReservedTimeSpan じょうほう = new ReservedTimeSpan(new DateTime(2019, 12, 25, 10,15,59), new DateTime(2019, 12, 25, 10,30,10));
             Assert.Equal(0.25, じょうほう.TimeOfNumber);
         }
         [Fact]

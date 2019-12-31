@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using modeling_mtg_room.Usecase;
 using modeling_mtg_room.Model;
+using Moq;
 
 namespace modeling_mtg_room.Test
 {
@@ -10,16 +11,17 @@ namespace modeling_mtg_room.Test
         [Fact]
         public void 会議室を予約したら予約が発生する()
         {
-            予約情報 じょうほう = new 予約情報();
-            予約 よやく = Usecase.Usecase.会議室を予約する(じょうほう);
+            string room = "a";
+            DateTime start = new DateTime(2020, 2, 1, 10,0,0);
+            var end = new DateTime(2020, 2, 1, 13, 15, 20);
+            int reserverOfNumber = 5;
+            string reserverId = "abcdefg";
+            予約 よやく = Usecase.Usecase.会議室を予約する(room,
+                                                        start,
+                                                        end,
+                                                        reserverOfNumber,
+                                                        reserverId);
             Assert.NotNull(よやく);
         }
-        // [Fact]
-        // public void 十時から十二時で予約したら二時間の予約が出来ること()
-        // {
-        //     予約情報 じょうほう = new 予約情報();
-        //     予約 よやく = Usecase.Usecase.会議室を予約する(じょうほう);
-        //     Assert.Equal(2.0, よやく.予約時間.Value);
-        // }
     }
 }
