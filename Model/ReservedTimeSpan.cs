@@ -21,10 +21,10 @@ namespace modeling_mtg_room.Model
 
             _start = start;
             _end = end;
-            // 15分単位でないとエラー
+
             if(_start.Minute % 15 != 0 || _end.Minute % 15 != 0)
                 throw new ArgumentException("15分単位で入力して下さい");
-            // _start<_endとなっていること
+
             if(_start > _end)
                 throw new ArgumentException("開始時間が終了時間を超えないようにして下さい");
 
@@ -46,6 +46,8 @@ namespace modeling_mtg_room.Model
         // 小数点第二位で切り捨て
         private double TruncateSecondDecimalNumber(double number)
         {
+            // Truncate()は小数点第二位を指定での切り捨てができないので
+            // 桁上げしている
             number *= 100;
             return Math.Truncate(number) / 100;
         }
