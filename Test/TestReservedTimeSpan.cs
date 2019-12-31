@@ -127,5 +127,7 @@ namespace modeling_mtg_room.Test
             });
         }
 
+        //todo:等値テストや、重なっていないかどうかのテストも必要
+
     }
 }
