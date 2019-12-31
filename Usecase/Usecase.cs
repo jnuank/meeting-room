@@ -11,6 +11,7 @@ namespace modeling_mtg_room.Usecase
         }
         public static 予約 会議室を予約する(予約情報 よやく)
         {
+            //todo: 入れた時間が、バッティングしていないかどうかをチェックする必要がある
             return new 予約();
         }
     }
