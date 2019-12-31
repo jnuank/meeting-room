@@ -24,6 +24,9 @@ namespace modeling_mtg_room.Model
 
             if((_dateTime.Now.AddDays(30)).Date < value.Date)
                 throw new ArgumentException("予約は30日後以内にして下さい");
+
+            if(value.Hour < 10 || value.Hour > 19)
+                throw new ArgumentException("予約は10時から19時までにして下さい");
             
             // 秒は関係無いので0秒で統一
             this.Value = value;

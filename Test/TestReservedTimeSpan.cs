@@ -15,9 +15,6 @@ namespace modeling_mtg_room.Test
             yield return new object[] { new ReservedTime( 2019, 12, 25, 10,15), new ReservedTime(2019, 12, 25, 10,30), 0.25 };
             yield return new object[] { new ReservedTime( 2019, 12, 25, 10,15), new ReservedTime(2019, 12, 25, 10,15), 0};
             yield return new object[] { new ReservedTime( 2019, 12, 25, 10,0), new ReservedTime(2019, 12, 25, 19,0), 9.0};
-            // yield return new object[] { 1, 0, 1 };
-            // yield return new object[] { 1, 1, 0 };
-            // yield return new object[] { 2, 1, 1 };
         }
 
         public static IEnumerable<object[]> FailSource()
@@ -36,68 +33,13 @@ namespace modeling_mtg_room.Test
         [Theory]
         [MemberData(nameof(FailSource))]
         [Trait("Category", "FailPattern")]
-        public void 不正パターン(ReservedTime start, ReservedTime end)
+        public void 開始時間が終了時間より未来日時の場合はエラー(ReservedTime start, ReservedTime end)
         {
             Assert.Throws<ArgumentException>(() => 
             {                
                 ReservedTimeSpan rts = new ReservedTimeSpan(start, end);
             });
         }
-//         [Fact]
-//         public void 十時から十九時まで以外の予約にした場合エラーとなる()
-//         {
-//             var dateTime = new Mock<IDateTime>();
-//             dateTime.Setup(d => d.Now)
-//                 .Returns(new DateTime(2020, 1, 1, 0,0,0));
- 
-//             Assert.Throws<ArgumentException>(() => 
-//             {                
-//                 ReservedTimeSpan rts = new ReservedTimeSpan(new DateTime(2020, 1, 31, 9, 0, 0),
-//                                                             new DateTime(2020, 1, 31, 15, 0, 0),
-//                                                             dateTime.Object);
-//             });
-//         }
-//         [Fact]
-//         public void 十時から十九時まで以外の予約にした場合エラーとなる２()
-//         {
-//             var dateTime = new Mock<IDateTime>();
-//             dateTime.Setup(d => d.Now)
-//                 .Returns(new DateTime(2020, 1, 1, 0,0,0));
-
-// 　           Assert.Throws<ArgumentException>(() => 
-//             {                
-//                 ReservedTimeSpan rts = new ReservedTimeSpan(new DateTime(2020, 1, 31, 20, 0, 0),
-//                                                             new DateTime(2020, 1, 31, 15, 0, 0),
-//                                                             dateTime.Object);
-//             });
-//         }
-//         [Fact]
-//         public void 十時から十九時まで以外の予約にした場合エラーとなる３()
-//         {
-//             var dateTime = new Mock<IDateTime>();
-//             dateTime.Setup(d => d.Now)
-//                 .Returns(new DateTime(2020, 1, 1, 0,0,0));
-//             Assert.Throws<ArgumentException>(() => 
-//             {                
-//                 ReservedTimeSpan rts = new ReservedTimeSpan(new DateTime(2020, 1, 31, 10, 0, 0),
-//                                                             new DateTime(2020, 1, 31, 9, 0, 0),
-//                                                             dateTime.Object);
-//             });
-//         }
-
-//         [Fact]
-//         public void 十時から十九時まで以外の予約にした場合エラーとなる４()
-//         {
-//             var dateTime = new Mock<IDateTime>();
-//             dateTime.Setup(d => d.Now)
-//                 .Returns(new DateTime(2020, 1, 1, 0,0,0));
-//             Assert.Throws<ArgumentException>(() => 
-//             {                
-//                 ReservedTimeSpan rts = new ReservedTimeSpan(new DateTime(2020, 1, 31, 10, 0, 0),
-//                                                             new DateTime(2020, 1, 31, 20, 0, 0),
-//                                                             dateTime.Object);
-//             });
-//         }
 
         //todo:等値テストや、重なっていないかどうかのテストも必要
 

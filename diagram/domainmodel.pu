@@ -8,7 +8,7 @@ rectangle 予約する時に必要な情報 {
     rectangle ここは一緒の情報？ {
         class "会議室" as MeetingRooms
         {
-            - List<会議時間>
+            - List<予約時間>
             + 時間を予約する(開始時間, 終了時間) : 予約
             + 予約一覧を出す(日付):List 会議時間
         }
@@ -17,7 +17,7 @@ rectangle 予約する時に必要な情報 {
             - 終了時間
             + 数値時間() 
         }
-        class "会議時間" as ReservedTime {
+        class "予約時間" as ReservedTime {
 
         }
     }
@@ -37,7 +37,7 @@ note right of ReservedTime
 15分単位
 end note
 note bottom of ReservedTime
-30日後まで予約できる
+予約できる日時は、30日以内
 end note
 note bottom of ReservedTime
 ReservedTimeSpanは10:00-19:00

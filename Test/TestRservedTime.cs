@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using modeling_mtg_room.Model;
 using Moq;
+using System.Collections.Generic;
 
 namespace modeling_mtg_room.Test
 {
@@ -21,6 +22,15 @@ namespace modeling_mtg_room.Test
             ReservedTime rt2 = new ReservedTime(2019, 12,31,12,15);
 
             Assert.True(rt.Equals(rt2));
+        }
+
+        [Fact]
+        public void 不等値テスト()
+        {
+            ReservedTime rt = new ReservedTime(2019,12,31,10,30);
+            ReservedTime rt2 = new ReservedTime(2019,12,31,18,45);
+
+            Assert.False(rt.Equals(rt2));
         }
 
         [Theory]
@@ -58,7 +68,6 @@ namespace modeling_mtg_room.Test
                 ReservedTime rts = new ReservedTime(2020, 2, 1, 10,15, dateTime.Object);
             });
         }
-        
         [Fact]
         public void 三十日後の日付で予約をしようとするとエラーにならない()
         {
@@ -67,6 +76,17 @@ namespace modeling_mtg_room.Test
                 .Returns(new DateTime(2020, 1, 1, 0,0,0));
             ReservedTime rts = new ReservedTime(2020, 1, 31, 14,0, dateTime.Object);
             Assert.Equal(0, rts.Value.Minute);
+        }
+
+        [Theory]
+        [InlineData(2020,1,1,9,0)]
+        [InlineData(2020,1,1,20,0)]
+        public void 十時から十九時まで以外の予約にした場合エラーとなる(int year, int month, int day, int hour, int minute)
+        {
+            Assert.Throws<ArgumentException>(() => 
+            {                
+                ReservedTime rt = new ReservedTime(year, month, day, hour, minute);
+            });
         }
     }
 }
