@@ -3,7 +3,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace modeling_mtg_room.Model
 {
-    // 予約時間
+    /// <summary>
+    /// 会議時間バリューオブジェクト
+    /// </summary>
     public class ReservedTimeSpan : IEquatable<ReservedTimeSpan>
     {
         // DateTimeを受け取るインターフェース
@@ -35,6 +37,10 @@ namespace modeling_mtg_room.Model
                 _end.Hour < 10 || _end.Hour > 19)
                 throw new ArgumentException("予約は10時から19時までにして下さい");
         }
+        /// <summary>
+        /// 数値時間(e.g. 1.5, 0.25)を返す
+        /// </summary>
+        /// <value>e.g. 0.25, 0.5, 0.75, 1.0</value>
         public double TimeOfNumber
         {
             get 
@@ -43,7 +49,11 @@ namespace modeling_mtg_room.Model
                 return TruncateSecondDecimalNumber(diff);
             }
         }
-        // 小数点第二位で切り捨て
+        /// <summary>
+        /// 小数点第二位で切り捨て
+        /// </summary>
+        /// <param name="number">e.g. 1.500000</param>
+        /// <returns>e.g. 1.50</returns>
         private double TruncateSecondDecimalNumber(double number)
         {
             // Truncate()は小数点第二位を指定での切り捨てができないので
