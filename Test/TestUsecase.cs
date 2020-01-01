@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using modeling_mtg_room.Domain.Reserve;
 using Moq;
+using InMemoryInfrastructure;
 
 namespace modeling_mtg_room.Test
 {
@@ -11,7 +12,7 @@ namespace modeling_mtg_room.Test
         public void 会議室を予約したら予約が発生する()
         {
             //todo: ここでテスト用のInMemoryリポジトリを入れる
-
+            var repository = new InMemoryReserveRepository();
             
             var dateTime = new Mock<IDateTime>();
             dateTime.Setup(d => d.Now)

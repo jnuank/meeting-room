@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestInfrastructure
+namespace InMemoryInfrastructure
 {
     public class Class1
     {

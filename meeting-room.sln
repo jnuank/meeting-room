@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{26EFE3C7-9661-4795-8008-2B86AF40A4CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InMemoryInfrastructure", "InMemoryInfrastructure\InMemoryInfrastructure.csproj", "{7728F3E6-12E6-43C3-9909-FF1B2DEC4356}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,5 +46,17 @@ Global
 		{26EFE3C7-9661-4795-8008-2B86AF40A4CB}.Release|x64.Build.0 = Release|Any CPU
 		{26EFE3C7-9661-4795-8008-2B86AF40A4CB}.Release|x86.ActiveCfg = Release|Any CPU
 		{26EFE3C7-9661-4795-8008-2B86AF40A4CB}.Release|x86.Build.0 = Release|Any CPU
+		{7728F3E6-12E6-43C3-9909-FF1B2DEC4356}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7728F3E6-12E6-43C3-9909-FF1B2DEC4356}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7728F3E6-12E6-43C3-9909-FF1B2DEC4356}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7728F3E6-12E6-43C3-9909-FF1B2DEC4356}.Debug|x64.Build.0 = Debug|Any CPU
+		{7728F3E6-12E6-43C3-9909-FF1B2DEC4356}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7728F3E6-12E6-43C3-9909-FF1B2DEC4356}.Debug|x86.Build.0 = Debug|Any CPU
+		{7728F3E6-12E6-43C3-9909-FF1B2DEC4356}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7728F3E6-12E6-43C3-9909-FF1B2DEC4356}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7728F3E6-12E6-43C3-9909-FF1B2DEC4356}.Release|x64.ActiveCfg = Release|Any CPU
+		{7728F3E6-12E6-43C3-9909-FF1B2DEC4356}.Release|x64.Build.0 = Release|Any CPU
+		{7728F3E6-12E6-43C3-9909-FF1B2DEC4356}.Release|x86.ActiveCfg = Release|Any CPU
+		{7728F3E6-12E6-43C3-9909-FF1B2DEC4356}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
