@@ -1,7 +1,6 @@
 using System;
-using modeling_mtg_room.Model;
 
-namespace modeling_mtg_room.Usecase
+namespace modeling_mtg_room.Domain.Reserve
 {
     public class ReserveApplication
     {
