@@ -18,7 +18,7 @@ namespace modeling_mtg_room.Test
             string room = "a";
             int reserverOfNumber = 5;
             string reserverId = "abcdefg";
-            予約 よやく = Usecase.Usecase.会議室を予約する(room,
+            Reserve よやく = Usecase.Usecase.ReserveMeetingRoom(room,
                                                         2020, 2, 1, 10, 0,
                                                         2020, 2, 1, 13, 15,
                                                         reserverOfNumber,

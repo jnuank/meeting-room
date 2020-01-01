@@ -1,15 +1,15 @@
 namespace modeling_mtg_room.Model
 {
-    public class 予約
+    public class Reserve
     {
         public MeetingRooms Room { get; }
         public ReservedTimeSpan TimeSpan { get; }
-        public 予約人数 ReserverOfNumber { get; }
-        public 予約者ID ReserverId { get; }
-        public 予約 (MeetingRooms room,
+        public ReserverOfNumber ReserverOfNumber { get; }
+        public ReserverId ReserverId { get; }
+        public Reserve (MeetingRooms room,
                     ReservedTimeSpan timeSpan,
-                    予約人数 reserverOfNumber,
-                    予約者ID reserverId)
+                    ReserverOfNumber reserverOfNumber,
+                    ReserverId reserverId)
         {
             this.Room = room;
             this.TimeSpan = timeSpan;

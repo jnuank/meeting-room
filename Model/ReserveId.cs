@@ -2,11 +2,11 @@ using System;
 
 namespace modeling_mtg_room.Model
 {
-    public class 予約者ID 
+    public class ReserverId 
     {
         public string Value {get;}
 
-        public 予約者ID (string value)
+        public ReserverId (string value)
         {
             //todo: ルールなし
 
