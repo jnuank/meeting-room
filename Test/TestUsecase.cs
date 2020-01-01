@@ -11,17 +11,25 @@ namespace modeling_mtg_room.Test
         [Fact]
         public void 会議室を予約したら予約が発生する()
         {
+            var dateTime = new Mock<IDateTime>();
+            dateTime.Setup(d => d.Now)
+                .Returns(new DateTime(2020, 1, 20, 0,0,0));
+
             string room = "a";
-            DateTime start = new DateTime(2020, 2, 1, 10,0,0);
-            var end = new DateTime(2020, 2, 1, 13, 15, 20);
             int reserverOfNumber = 5;
             string reserverId = "abcdefg";
             予約 よやく = Usecase.Usecase.会議室を予約する(room,
-                                                        start,
-                                                        end,
+                                                        2020, 2, 1, 10, 0,
+                                                        2020, 2, 1, 13, 15,
                                                         reserverOfNumber,
-                                                        reserverId);
+                                                        reserverId,
+                                                        dateTime.Object);
             Assert.NotNull(よやく);
+            Assert.Equal(MeetingRooms.A, よやく.Room);
+            Assert.Equal("2020/02/01 10:00:00", よやく.TimeSpan._start.Value.ToString("yyyy/MM/dd HH:mm:ss"));
+            Assert.Equal("2020/02/01 13:15:00", よやく.TimeSpan._end.Value.ToString("yyyy/MM/dd HH:mm:ss"));
+            Assert.Equal(5, よやく.ReserverOfNumber.Value);
+            Assert.Equal("abcdefg", よやく.ReserverId.Value);
         }
     }
 }

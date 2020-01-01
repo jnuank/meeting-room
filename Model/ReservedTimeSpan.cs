@@ -11,31 +11,18 @@ namespace modeling_mtg_room.Model
         // DateTimeを受け取るインターフェース
         private IDateTime _dateTime;
         // 開始時間
-        private ReservedTime _start;
+        public ReservedTime _start;
         // 終了時間
-        private ReservedTime _end;
+        public ReservedTime _end;
         public ReservedTimeSpan(ReservedTime start,
-                                ReservedTime end,
-                                IDateTime dateTime = null)
+                                ReservedTime end)
         {
-            // 日付がDIされていたら、変数に入れる
-            _dateTime = dateTime ?? new ServerDateTime(); 
-
             _start = start;
             _end = end;
-
-            if(_start.Value.Minute % 15 != 0 || _end.Value.Minute % 15 != 0)
-                throw new ArgumentException("15分単位で入力して下さい");
 
             if(_start.Value > _end.Value)
                 throw new ArgumentException("開始時間が終了時間を超えないようにして下さい");
 
-            if((_dateTime.Now.AddDays(30)).Date < _start.Value.Date)
-                throw new ArgumentException("予約は30日後以内にして下さい");
-            
-            if(_start.Value.Hour < 10 || _start.Value.Hour > 19 || 
-                _end.Value.Hour < 10 || _end.Value.Hour > 19)
-                throw new ArgumentException("予約は10時から19時までにして下さい");
         }
         /// <summary>
         /// 数値時間(e.g. 1.5, 0.25)を返す

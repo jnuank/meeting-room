@@ -13,16 +13,23 @@ namespace modeling_mtg_room.Usecase
             this.dateTime = dateTime ?? new ServerDateTime();
         }
         public static 予約 会議室を予約する(string room,
-                                        DateTime start,
-                                        DateTime end,
+                                        int startYear, int startMonth, int startDay, int startHour, int startMinute,
+                                        int endYear, int endMonth, int endDay, int endHour, int endMinute,
                                         int reserverOfNumber,
-                                        string reserverId)
+                                        string reserverId,
+                                        IDateTime dateTime = null)
         {
             MeetingRooms mtgRoom;
             if(!Enum.TryParse(room, true, out mtgRoom))
                 throw new ApplicationException("指定された会議室が存在しません");
+
+            var startTime = new ReservedTime(startYear, startMonth, startDay, startHour, startMinute, dateTime);
+            var endTime = new ReservedTime(endYear, endMonth, endDay, endHour, endMinute, dateTime);
+            var timeSpan = new ReservedTimeSpan(startTime, endTime);
+            var reserver = new 予約人数(reserverOfNumber);
+            var id = new 予約者ID(reserverId);
             
-            return new 予約();
+            return new 予約(mtgRoom, timeSpan, reserver, id);
         }
             //todo: 入れた時間が、バッティングしていないかどうかをチェックする必要がある
     }

@@ -43,6 +43,9 @@ note bottom of ReservedTime
 ReservedTimeSpanは10:00-19:00
 end note
 
+note right of ReservedTimeSpan
+開始時間<終了時間になるように
+end note
 note bottom of ReservedTimeSpan
 同日じゃないと駄目というルールが必要かもしれない
 end note
