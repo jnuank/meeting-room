@@ -24,7 +24,7 @@ namespace modeling_mtg_room.Domain.Reserve
                 throw new ArgumentException("日付をまたがって予約をすることはできません");
 
             if(_start.Equals(_end))
-                throw new ArgumentException("予約は最低15分からです");
+                throw new ArgumentException($"予約は最低{ReservedTime.MINUTES_PER_TIME_BLOCK}分からです");
 
             if(_start.Value > _end.Value)
                 throw new ArgumentException("開始時間が終了時間を超えないようにして下さい");
@@ -34,7 +34,7 @@ namespace modeling_mtg_room.Domain.Reserve
         /// 
         /// </summary>
         /// <param name="start">開始時間</param>
-        /// <param name="timeBlock">コマ数(15分=1コマ)</param>
+        /// <param name="timeBlock">コマ数</param>
         public ReservedTimeSpan(ReservedTime start,
                                 int timeBlock)
         {
@@ -45,7 +45,7 @@ namespace modeling_mtg_room.Domain.Reserve
                 throw new ArgumentException("日付をまたがって予約をすることはできません");
 
             if(_start.Equals(_end))
-                throw new ArgumentException("予約は最低15分からです");
+                throw new ArgumentException($"予約は最低{ReservedTime.MINUTES_PER_TIME_BLOCK}分からです");
 
             if(_start.Value > _end.Value)
                 throw new ArgumentException("開始時間が終了時間を超えないようにして下さい");
