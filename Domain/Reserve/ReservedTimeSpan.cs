@@ -20,6 +20,12 @@ namespace modeling_mtg_room.Domain.Reserve
             _start = start;
             _end = end;
 
+            if(_start.Value.Date != _end.Value.Date)
+                throw new ArgumentException("日付をまたがって予約をすることはできません");
+
+            if(_start.Equals(_end))
+                throw new ArgumentException("予約は最低15分からです");
+
             if(_start.Value > _end.Value)
                 throw new ArgumentException("開始時間が終了時間を超えないようにして下さい");
 
@@ -62,10 +68,7 @@ namespace modeling_mtg_room.Domain.Reserve
             
             bool isOverlap = (this._start.Value >= other._start.Value && this._start.Value < other._end.Value)
                             || (this._start.Value <= other._start.Value && this._end.Value > other._start.Value);
-                          //  || (this._start.Value <= other._start.Value && this._start.Value < other._end.Value);
-
             return isOverlap;
-
         }
     }
 }

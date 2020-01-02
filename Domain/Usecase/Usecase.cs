@@ -41,6 +41,5 @@ namespace modeling_mtg_room.Domain.Reserve
             return reserve.Id;
 
         }
-            //todo: 入れた時間が、バッティングしていないかどうかをチェックする必要がある
     }
 }
