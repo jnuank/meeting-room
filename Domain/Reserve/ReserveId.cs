@@ -1,15 +1,12 @@
-using System;
-
 namespace modeling_mtg_room.Domain.Reserve
 {
-    public class ReserverId 
+    public class ReserveId
     {
-        public string Value {get;}
+        public string Value { get; }
 
-        public ReserverId (string value)
+        public ReserveId(string value)
         {
-            //todo: ルールなし
-
+            // todo: ルールいまのところ無し
             this.Value = value;
         }
     }
