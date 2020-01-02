@@ -29,10 +29,11 @@ rectangle 予約する時に必要な情報 {
             + 時間を予約する(開始時間, 終了時間) : 予約
             + 予約一覧を出す(日付):List 会議時間
         }
-        class "会議時間期間 ReservedTimeSpan" as ReservedTimeSpan {
+        class "会議時間期間 TimeSpan" as ReservedTimeSpan {
             - 開始時間
             - 終了時間
-            + 数値時間() 
+            + 数値時間()
+            + 時間が重なっているかどうかのチェックをする() 
         }
         class "予約時間" as ReservedTime {
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using modeling_mtg_room.Domain.Reserve;
+using System.Linq;
 
 namespace InMemoryInfrastructure
 {
@@ -17,6 +18,11 @@ namespace InMemoryInfrastructure
             {
                 return null;
             }
+        }
+
+        public IEnumerable<Reserve> FindOfRoom(MeetingRooms room)
+        {
+            return data.Values.Where(x => x.Room.Equals(room));
         }
 
         public void Save(Reserve reserve)

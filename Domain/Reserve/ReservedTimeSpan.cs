@@ -55,5 +55,16 @@ namespace modeling_mtg_room.Domain.Reserve
             if (ReferenceEquals(this, other)) return true;
             return this._start == other._start && this._end == other._end;
         }
+
+        public bool IsOverlap(ReservedTimeSpan other)
+        {
+            if (this.Equals(other)) return true;
+            
+            bool isOverlap = (this._start.Value >= other._start.Value && this._start.Value < other._end.Value);
+                          //  || (this._start.Value <= other._start.Value && this._start.Value < other._end.Value);
+
+            return isOverlap;
+
+        }
     }
 }
