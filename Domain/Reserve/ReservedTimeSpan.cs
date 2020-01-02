@@ -31,6 +31,32 @@ namespace modeling_mtg_room.Domain.Reserve
 
         }
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="start">開始時間</param>
+        /// <param name="timeBlock">コマ数(15分=1コマ)</param>
+        public ReservedTimeSpan(ReservedTime start,
+                                int timeBlock)
+        {
+            _start = start;
+            var endDateTime = _start.Value.AddMinutes(timeBlock*15);
+            _end = new ReservedTime(endDateTime.Year,
+                                    endDateTime.Month,
+                                    endDateTime.Day,
+                                    endDateTime.Hour,
+                                    endDateTime.Minute);
+
+            if(_start.Value.Date != _end.Value.Date)
+                throw new ArgumentException("日付をまたがって予約をすることはできません");
+
+            if(_start.Equals(_end))
+                throw new ArgumentException("予約は最低15分からです");
+
+            if(_start.Value > _end.Value)
+                throw new ArgumentException("開始時間が終了時間を超えないようにして下さい");
+
+        }
+        /// <summary>
         /// 数値時間(e.g. 1.5, 0.25)を返す
         /// </summary>
         /// <value>e.g. 0.25, 0.5, 0.75, 1.0</value>

@@ -9,7 +9,7 @@ namespace modeling_mtg_room.Test
     public class TestUsecase
     {
         [Fact]
-        public void 会議室を予約したら予約が発生する()
+        public void 会議室を予約する()
         {
             var repository = new InMemoryReserveRepository();
             
@@ -30,7 +30,6 @@ namespace modeling_mtg_room.Test
             var よやく = repository.Find(id);
             Assert.NotNull(よやく);
             Assert.True(よやく.Id == id);
-
         }
         [Theory]
         [InlineData(2020, 2, 1, 12, 45,
@@ -115,6 +114,32 @@ namespace modeling_mtg_room.Test
             var よやく = repository.Find(id2);
             Assert.NotNull(よやく);
             Assert.True(よやく.Id == id2);
+        }
+        [Theory]
+        [InlineData(2020, 2, 1, 10, 0, 6, 1.5)]
+        [InlineData(2020, 2, 1, 10, 0, 10, 2.5)]
+        public void 会議室を予約するの別ユースケース(int year, int month, int day, int hour, int minute, int timeBlock, double expected)
+        {
+            var repository = new InMemoryReserveRepository();
+            
+            var dateTime = new Mock<IDateTime>();
+            dateTime.Setup(d => d.Now)
+                .Returns(new DateTime(2020, 1, 20, 0,0,0));
+
+            string room = "a";
+            int reserverOfNumber = 5;
+            string reserverId = "abcdefg";
+
+            var usecase = new ReserveApplication(repository, dateTime.Object);
+            var id = usecase.ReserveMeetingRoom(room,
+                                        year, month, day, hour, minute,
+                                        timeBlock,
+                                        reserverOfNumber,
+                                        reserverId);
+            var よやく = repository.Find(id);
+            Assert.NotNull(よやく);
+            Assert.True(よやく.Id == id);
+            Assert.Equal(expected, よやく.TimeSpan.TimeOfNumber);
         }
     }
 }

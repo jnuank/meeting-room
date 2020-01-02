@@ -3,6 +3,7 @@
 class 予約者
 class 予約
 {
+    - 予約ID
     - 予約人数
     - 予約者ID
     - 会議時間期間
@@ -18,7 +19,15 @@ end note
 class 予約サービス{
     + 予約対象が埋まっていないか確認をする(予約)
 }
+
+class 利用{
+    - 予約ID
+    - 開始時間
+    - 終了時間
+}
+
 予約サービス --> 予約 : use
+予約 --> 予約する時に必要な情報 : use
 
 rectangle 予約する時に必要な情報 {
     class 予約者ID
@@ -49,23 +58,23 @@ rectangle 予約する時に必要な情報 {
     note bottom of 予約人数
     今回、これ何人？
     end note
+
+    note right of ReservedTime
+    15分単位
+    end note
+    note bottom of ReservedTime
+    予約できる日時は、30日以内
+    end note
+    note bottom of ReservedTime
+    ReservedTimeSpanは10:00-19:00
+    end note
+
+    note right of ReservedTimeSpan
+    開始時間<終了時間になるように
+    end note
+    note bottom of ReservedTimeSpan
+    日付をまたがる予約は不可能
+    end note
 }
-
-note right of ReservedTime
-15分単位
-end note
-note bottom of ReservedTime
-予約できる日時は、30日以内
-end note
-note bottom of ReservedTime
-ReservedTimeSpanは10:00-19:00
-end note
-
-note right of ReservedTimeSpan
-開始時間<終了時間になるように
-end note
-note bottom of ReservedTimeSpan
-同日じゃないと駄目というルールが必要かもしれない
-end note
 
 @enduml
