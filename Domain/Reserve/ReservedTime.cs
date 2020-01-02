@@ -5,6 +5,7 @@ namespace modeling_mtg_room.Domain.Reserve
 {
     public class ReservedTime : IEquatable<ReservedTime>
     {
+        public static readonly int MINUTES_PER_TIME_BLOCK = 15; 
         public DateTime Value { get; }
         private readonly IDateTime _dateTime;
 
@@ -17,8 +18,8 @@ namespace modeling_mtg_room.Domain.Reserve
         {
             _dateTime = dateTime ?? new ServerDateTime();
 
-            if(minute % 15 != 0 )
-                throw new ArgumentException("15分単位で入力して下さい");
+            if(minute % MINUTES_PER_TIME_BLOCK != 0 )
+                throw new ArgumentException($"{MINUTES_PER_TIME_BLOCK}分単位で入力して下さい");
 
             var value = new DateTime(year, month, day, hour, minute, 0);
 
@@ -31,6 +32,16 @@ namespace modeling_mtg_room.Domain.Reserve
             // 秒は関係無いので0秒で統一
             this.Value = value;
 
+        }
+
+        public ReservedTime AddTimeBlock(int timeBlock)
+        {
+            DateTime time = this.Value.AddMinutes(timeBlock * MINUTES_PER_TIME_BLOCK);
+            return new ReservedTime(time.Year,
+                                    time.Month,
+                                    time.Day,
+                                    time.Hour,
+                                    time.Minute);
         }
 
         public bool Equals(ReservedTime other)

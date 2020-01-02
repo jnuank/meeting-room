@@ -39,12 +39,7 @@ namespace modeling_mtg_room.Domain.Reserve
                                 int timeBlock)
         {
             _start = start;
-            var endDateTime = _start.Value.AddMinutes(timeBlock*15);
-            _end = new ReservedTime(endDateTime.Year,
-                                    endDateTime.Month,
-                                    endDateTime.Day,
-                                    endDateTime.Hour,
-                                    endDateTime.Minute);
+            _end = _start.AddTimeBlock(timeBlock);
 
             if(_start.Value.Date != _end.Value.Date)
                 throw new ArgumentException("日付をまたがって予約をすることはできません");
