@@ -13,6 +13,11 @@ namespace modeling_mtg_room.Domain.Reserve
             this.repository = repository;
         }
 
+        /// <summary>
+        /// 予約しようとしているものが重なっているかどうかの確認する
+        /// </summary>
+        /// <param name="reserve"></param>
+        /// <returns></returns>
         public bool IsOverlap(Reserve reserve)
         {
             MeetingRooms room = reserve.Room;

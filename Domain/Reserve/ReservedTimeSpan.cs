@@ -60,7 +60,8 @@ namespace modeling_mtg_room.Domain.Reserve
         {
             if (this.Equals(other)) return true;
             
-            bool isOverlap = (this._start.Value >= other._start.Value && this._start.Value < other._end.Value);
+            bool isOverlap = (this._start.Value >= other._start.Value && this._start.Value < other._end.Value)
+                            || (this._start.Value <= other._start.Value && this._end.Value > other._start.Value);
                           //  || (this._start.Value <= other._start.Value && this._start.Value < other._end.Value);
 
             return isOverlap;
