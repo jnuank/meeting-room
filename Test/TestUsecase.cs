@@ -22,13 +22,12 @@ namespace modeling_mtg_room.Test
             int reserverOfNumber = 5;
             string reserverId = "abcdefg";
 
-            var usecase = new ReserveApplication(dateTime.Object);
+            var usecase = new ReserveApplication(repository, dateTime.Object);
             var id = usecase.ReserveMeetingRoom(room,
                                         2020, 2, 1, 10, 0,
                                         2020, 2, 1, 13, 15,
                                         reserverOfNumber,
-                                        reserverId,
-                                        repository);
+                                        reserverId);
             var よやく = repository.Find(id);
             Assert.NotNull(よやく);
             Assert.Equal(MeetingRooms.A, よやく.Room);

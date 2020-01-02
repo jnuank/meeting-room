@@ -7,17 +7,17 @@ namespace modeling_mtg_room.Domain.Reserve
         private readonly IDateTime dateTime;
         private readonly IReserveRepository repository;
         
-        public ReserveApplication(IDateTime dateTime = null)
+        public ReserveApplication(IReserveRepository repository,  IDateTime dateTime = null)
         {
             // デフォルトではサーバが保持する時間を使用する
             this.dateTime = dateTime ?? new ServerDateTime();
+            this.repository = repository;
         }
         public ReserveId ReserveMeetingRoom(string room,
                                             int startYear, int startMonth, int startDay, int startHour, int startMinute,
                                             int endYear, int endMonth, int endDay, int endHour, int endMinute,
                                             int reserverOfNumber,
-                                            string reserverId,
-                                            IReserveRepository repository)
+                                            string reserverId)
         {
             MeetingRooms mtgRoom;
             if(!Enum.TryParse(room, true, out mtgRoom))
