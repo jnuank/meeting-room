@@ -39,6 +39,9 @@ namespace modeling_mtg_room.Domain.Reserve
 
             return reserve.Id;
         }
+
+        // memo:ユースケースは、わりと手続き的な処理を見通せるようにしておきたい意図があるので、
+        // 必要以上に重複コードを排除して、共通化とかにしない方がいいかと思い、このままにしておく
         public ReserveId ReserveMeetingRoom(string room,
                                             int startYear, int startMonth, int startDay, int startHour, int startMinute,
                                             int timeBlock,
