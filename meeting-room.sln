@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InMemoryInfrastructure", "InMemoryInfrastructure\InMemoryInfrastructure.csproj", "{7728F3E6-12E6-43C3-9909-FF1B2DEC4356}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aws-csharp", "Lambda\aws-csharp.csproj", "{92E465C0-B4A4-49C4-B50C-6EF65ECA21C4}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,5 +60,17 @@ Global
 		{7728F3E6-12E6-43C3-9909-FF1B2DEC4356}.Release|x64.Build.0 = Release|Any CPU
 		{7728F3E6-12E6-43C3-9909-FF1B2DEC4356}.Release|x86.ActiveCfg = Release|Any CPU
 		{7728F3E6-12E6-43C3-9909-FF1B2DEC4356}.Release|x86.Build.0 = Release|Any CPU
+		{92E465C0-B4A4-49C4-B50C-6EF65ECA21C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92E465C0-B4A4-49C4-B50C-6EF65ECA21C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92E465C0-B4A4-49C4-B50C-6EF65ECA21C4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{92E465C0-B4A4-49C4-B50C-6EF65ECA21C4}.Debug|x64.Build.0 = Debug|Any CPU
+		{92E465C0-B4A4-49C4-B50C-6EF65ECA21C4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{92E465C0-B4A4-49C4-B50C-6EF65ECA21C4}.Debug|x86.Build.0 = Debug|Any CPU
+		{92E465C0-B4A4-49C4-B50C-6EF65ECA21C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92E465C0-B4A4-49C4-B50C-6EF65ECA21C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92E465C0-B4A4-49C4-B50C-6EF65ECA21C4}.Release|x64.ActiveCfg = Release|Any CPU
+		{92E465C0-B4A4-49C4-B50C-6EF65ECA21C4}.Release|x64.Build.0 = Release|Any CPU
+		{92E465C0-B4A4-49C4-B50C-6EF65ECA21C4}.Release|x86.ActiveCfg = Release|Any CPU
+		{92E465C0-B4A4-49C4-B50C-6EF65ECA21C4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
