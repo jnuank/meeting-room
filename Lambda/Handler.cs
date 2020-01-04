@@ -5,6 +5,11 @@ using InMemoryInfrastructure;
 using Newtonsoft.Json;
 using System.Net;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using System.Runtime.Serialization.Json;
+using Codeplex.Data;
+
 
 [assembly:LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
 
@@ -12,39 +17,40 @@ namespace AwsDotnetCsharp
 {
     public class Handler
     {
-      public LambdaResponse Hello(Request request)
+      public async Task<LambdaResponse> Hello(Stream input, ILambdaContext context)
       {
-          // yyyy-mm-ddThh:MM:ss+zz:zz形式を、DateTime型にParseする
-          // DateTime start = DateTime.Parse(request.StartDateTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
-          // DateTime end   = DateTime.Parse(request.EndDateTime  , null, System.Globalization.DateTimeStyles.RoundtripKind);
-
-          DateTime start = DateTime.Parse("2020-1-10T10:00:40+09:00", null, System.Globalization.DateTimeStyles.RoundtripKind);
-          DateTime end   = DateTime.Parse("2020-1-10T18:45:40+09:00" , null, System.Globalization.DateTimeStyles.RoundtripKind);
 
           var repository = new InMemoryReserveRepository();
           // ユースケースを実行する
-          var usecase = new ReserveApplication(repository);
-          var id = usecase.ReserveMeetingRoom("A",
-                                              start.Year,start.Month,start.Day,start.Hour,start.Minute,
-                                              end.Year,end.Month,end.Day,end.Hour,end.Minute,
-                                              2,
-                                              "abc");
-          // var id = usecase.ReserveMeetingRoom(request.Room,
-          //                                     start.Year,start.Month,start.Day,start.Hour,start.Minute,
-          //                                     end.Year,end.Month,end.Day,end.Hour,end.Minute,
-          //                                     int.Parse(request.ReserverOfNumber),
-          //                                     request.ReserverId);
-          Reserve reserve = repository.Find(id);
-          return new LambdaResponse {
-              StatusCode = HttpStatusCode.OK,
-              Headers = null,
-              Body = JsonConvert.SerializeObject(
-                  new ResponseParam 
-                  {
-                      Romm = reserve.Room.ToString()
-                  })
-          };
-          //return new Response(reserve.Room.ToString(), request);
+          using (var reader = new StreamReader(input))
+          {
+              var val = await reader.ReadToEndAsync();
+
+              var obj = DynamicJson.Parse(val);
+              var body = DynamicJson.Parse(obj["body"]);
+              Console.WriteLine(obj);
+              Console.WriteLine(body["room"]);
+              // yyyy-mm-ddThh:MM:ss+zz:zz形式を、DateTime型にParseする
+              DateTime start = DateTime.Parse(body["startDateTime"], null, System.Globalization.DateTimeStyles.RoundtripKind);
+              DateTime end   = DateTime.Parse(body["endDateTime"]  , null, System.Globalization.DateTimeStyles.RoundtripKind);
+              var usecase = new ReserveApplication(repository);
+              var id = usecase.ReserveMeetingRoom(body["room"],
+                                                  start.Year,start.Month,start.Day,start.Hour,start.Minute,
+                                                  end.Year,end.Month,end.Day,end.Hour,end.Minute,
+                                                  int.Parse(body["reserverOfNumber"]),
+                                                  body["reserverId"]);
+              Reserve reserve = repository.Find(id);
+              return new LambdaResponse {
+                  StatusCode = HttpStatusCode.OK,
+                  Headers = null,
+                  Body = JsonConvert.SerializeObject(
+                      new ResponseParam 
+                      {
+                          Room = reserve.Room.ToString()
+                      })
+              };
+              //return new Response(reserve.Room.ToString(), request);
+          }
       }
     }
 
@@ -63,7 +69,7 @@ namespace AwsDotnetCsharp
     public class ResponseParam
     {
         [JsonProperty(PropertyName = "room")]
-        public string Romm { get; set; }
+        public string Room { get; set; }
     }
 
     public class Response
@@ -76,6 +82,8 @@ namespace AwsDotnetCsharp
         Request = request;
       }
     }
+
+    
 
     public class Request
     {
