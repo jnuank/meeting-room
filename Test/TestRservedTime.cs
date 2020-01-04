@@ -80,7 +80,11 @@ namespace modeling_mtg_room.Test
 
         [Theory]
         [InlineData(2020,1,1,9,0)]
+        [InlineData(2020,1,1,9,45)]
         [InlineData(2020,1,1,20,0)]
+        [InlineData(2020,1,1,19,15)]
+        [InlineData(2020,1,1,19,30)]
+        [InlineData(2020,1,1,19,45)]
         public void 十時から十九時まで以外の予約にした場合エラーとなる(int year, int month, int day, int hour, int minute)
         {
             Assert.Throws<ArgumentException>(() => 
