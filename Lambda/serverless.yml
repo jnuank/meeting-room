@@ -53,6 +53,10 @@ package:
 functions:
   hello:
     handler: CsharpHandlers::AwsDotnetCsharp.Handler::Hello
+    events:
+      - http:
+          path: hello
+          method: get
 
     # you can add packaging information here
     package:
