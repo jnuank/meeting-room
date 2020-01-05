@@ -21,6 +21,11 @@ namespace InMemoryInfrastructure
             }
         }
 
+        public Task<Reserve> FindAsync(ReserveId id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Reserve> FindOfRoom(MeetingRooms room)
         {
             return data.Values.Where(x => x.Room.Equals(room));

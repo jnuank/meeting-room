@@ -8,6 +8,8 @@ using Amazon;
 using System.Threading.Tasks;
 using Amazon.S3.Transfer;
 using Codeplex.Data;
+using System.IO;
+using S3Infrastructure.Models;
 
 namespace S3Infrastructure
 {
@@ -22,16 +24,45 @@ namespace S3Infrastructure
         }
         public Reserve Find(ReserveId id)
         {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Reserve> FindAsync(ReserveId id)
+        {
             GetObjectRequest request = new GetObjectRequest()
             {
-                BucketName = "meeting-room",
+                BucketName = "meeting-room-bucket",
                 Key = id.Value,
             };
             try {
-                var obj = client.GetObjectAsync(request);
-                Console.WriteLine(obj);
-                return null;
+                var response = await client.GetObjectAsync(request);
+                Console.WriteLine(response);
+
+                using(StreamReader reader = new StreamReader(response.ResponseStream))
+                {
+                    string contents = reader.ReadToEnd();
+                    var reserve = DynamicJson.Parse(contents);
+                    Console.WriteLine(reserve);
+
+                    DateTime start = DateTime.Parse(reserve["StartDate"], null, System.Globalization.DateTimeStyles.RoundtripKind);
+                    DateTime end   = DateTime.Parse(reserve["EndDate"]  , null, System.Globalization.DateTimeStyles.RoundtripKind);
+
+                    MeetingRooms mtgRoom;
+                    Enum.TryParse(reserve["Room"], true, out mtgRoom);
+
+                    var startTime = new ReservedTime(start.Year, start.Month, start.Day, start.Hour, start.Minute);
+                    var endTime = new ReservedTime(end.Year, end.Month, end.Day, end.Hour, end.Minute);
+                    var timeSpan = new ReservedTimeSpan(startTime, endTime);
+                    var reserver = new ReserverOfNumber(int.Parse(reserve["ReserveOfNumber"]));
+                    var reserverId = new ReserverId(reserve["ReserverId"]);
+
+                    return new Reserve(id, mtgRoom, timeSpan, reserver, reserverId);
+
+                }
             }catch (Exception ex){
+                Console.WriteLine("Getエラー");
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
                 throw ex;
             }
         }
@@ -45,8 +76,12 @@ namespace S3Infrastructure
             try {
                 var obj = client.GetObjectAsync(request);
                 Console.WriteLine(obj);
+                
                 return null;
             }catch (Exception ex){
+                Console.WriteLine("Getエラー");
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
                 throw ex;
             } 
         }
@@ -59,7 +94,17 @@ namespace S3Infrastructure
         public async Task SaveAsync(Reserve reserve)
         {
             Console.WriteLine("SaveAsync");
-            string data = DynamicJson.Serialize(reserve);
+            ReserveModel model = new ReserveModel
+            {
+                ReserverId = reserve.ReserverId.Value,
+                Room = reserve.Room.ToString(),
+                StartDate = reserve.TimeSpan._start.Value.ToString("o"),
+                EndDate = reserve.TimeSpan._end.Value.ToString("o"),
+                Id = reserve.Id.Value,
+                ReserveOfNumber = reserve.ReserverOfNumber.Value.ToString()
+            };
+
+            string data = DynamicJson.Serialize(model);
             Console.WriteLine(data);
             PutObjectRequest request = new PutObjectRequest
             {

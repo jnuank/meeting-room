@@ -28,6 +28,15 @@ functions:
     #    - exclude-me.js
     #    - exclude-me-dir/**
     role: !GetAtt lambdaHelloRole.Arn
+  getReserve:
+    handler: CsharpHandlers::AwsDotnetCsharp.Handler::GetReserve
+    events:
+      - http:
+          path: hello/{reserveId}
+          method: get
+    package:
+      artifact: bin/release/netcoreapp2.1/hello.zip
+    role: !GetAtt lambdaHelloRole.Arn
 
 resources:
   Resources:

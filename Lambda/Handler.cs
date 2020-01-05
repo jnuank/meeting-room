@@ -18,14 +18,18 @@ namespace AwsDotnetCsharp
 {
     public class Handler
     {
+        private readonly IReserveRepository repository;
+        public Handler()
+        {
+            repository = new S3ReserveRepository();
+        }
         public async Task<LambdaResponse> Hello(Stream input, ILambdaContext context)
         {
-            //var repository = new InMemoryReserveRepository();
-            var repository = new S3ReserveRepository();
             // ユースケースを実行する
             var reader = new StreamReader(input);
             var val = await reader.ReadToEndAsync();
 
+            // Inputで来たJSONをオブジェクトにパースする
             var obj = DynamicJson.Parse(val);
             var body = DynamicJson.Parse(obj["body"]);
 
@@ -67,6 +71,29 @@ namespace AwsDotnetCsharp
                 };
             }
         }
+
+        public async Task<LambdaResponse> GetReserve(Stream input, ILambdaContext context)
+        {
+            var reader  = new StreamReader(input);
+            string val  = await reader.ReadToEndAsync();
+            dynamic obj = DynamicJson.Parse(val);
+            string id   = obj["pathParameters"]["reserveId"];
+
+            Reserve reserve = await repository.FindAsync(new ReserveId(id));
+
+            return new LambdaResponse {
+                    StatusCode = HttpStatusCode.OK,
+                    Headers = null,
+                    Body = JsonConvert.SerializeObject(
+                        new ResponseParam 
+                        {
+                            ReserveId = reserve.Id.Value,
+                            Room = reserve.Room.ToString()
+                        }
+                    )
+                }; 
+
+        }
     }
 
     public class LambdaResponse
@@ -83,8 +110,12 @@ namespace AwsDotnetCsharp
 
     public class ResponseParam
     {
+        [JsonProperty(PropertyName = "reserveId")]
+        public string ReserveId { get; set; }
+
         [JsonProperty(PropertyName = "room")]
         public string Room { get; set; }
+
     }
 
     public class ErrorResponse
