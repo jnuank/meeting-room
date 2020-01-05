@@ -34,6 +34,13 @@ functions:
           path: get/{reserveId}
           method: get
     role: !GetAtt lambdaHelloRole.Arn
+  modifyReserve:
+    handler: CsharpHandlers::AwsDotnetCsharp.Handler::ModifyReserve
+    events:
+      - http:
+          path: modify
+          method: put
+    role: !GetAtt lambdaHelloRole.Arn 
   deleteReseve:
     handler: CsharpHandlers::AwsDotnetCsharp.Handler::DeleteReserve
     events:

@@ -98,7 +98,7 @@ namespace AwsDotnetCsharp
             dynamic obj = DynamicJson.Parse(val);
             string id   = obj["pathParameters"]["reserveId"];
 
-            await usecase.DeleteReserveAsync(id);
+            await usecase.CancelReserveAsync(id);
             return new LambdaResponse {
                 StatusCode = HttpStatusCode.OK,
                 Headers = null,
@@ -106,6 +106,50 @@ namespace AwsDotnetCsharp
                     new ResponseParam()
                 )
             }; 
+        }
+        public async Task<LambdaResponse> ModifyReserve(Stream input, ILambdaContext context)
+        {
+            var reader = new StreamReader(input);
+            var val = await reader.ReadToEndAsync();
+            // Inputで来たJSONをオブジェクトにパースする
+            var obj = DynamicJson.Parse(val);
+            var body = DynamicJson.Parse(obj["body"]);
+
+            // yyyy-mm-ddThh:MM:ss+zz:zz形式を、DateTime型にParseする
+            DateTime start = DateTime.Parse(body["startDateTime"], null, System.Globalization.DateTimeStyles.RoundtripKind);
+            DateTime end   = DateTime.Parse(body["endDateTime"]  , null, System.Globalization.DateTimeStyles.RoundtripKind);
+
+            try {
+                string id = await usecase.ModifyReserveAsync(body["id"],
+                                                    body["room"],
+                                                    start.Year,start.Month,start.Day,start.Hour,start.Minute,
+                                                    end.Year,end.Month,end.Day,end.Hour,end.Minute,
+                                                    int.Parse(body["reserverOfNumber"]),
+                                                    body["reserverId"]);
+
+                return new LambdaResponse {
+                    StatusCode = HttpStatusCode.OK,
+                    Headers = null,
+                    Body = JsonConvert.SerializeObject(
+                        new ResponseParam 
+                        {
+                            ReserveId = id
+                        }
+                    )
+                };
+            }catch(Exception ex){
+                return new LambdaResponse {
+                    StatusCode = HttpStatusCode.OK,
+                    Headers = null,
+                    Body = JsonConvert.SerializeObject(
+                        new ErrorResponse {
+                            ErrorMessage = ex.Message,
+                            ErrorType = ex.GetType().ToString(),
+                            StackTrace = ex.StackTrace
+                        }
+                    )
+                };
+            }
         }
     }
 

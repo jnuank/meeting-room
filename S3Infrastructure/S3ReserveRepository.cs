@@ -14,6 +14,7 @@ namespace S3Infrastructure
 {
     public class S3ReserveRepository : IReserveRepository
     {
+        private readonly string BUCKET_NAME = "meeting-room-bucket";
         private readonly AmazonS3Client client;
         public S3ReserveRepository()
         {
@@ -24,7 +25,7 @@ namespace S3Infrastructure
         {
             DeleteObjectRequest request = new DeleteObjectRequest()
             {
-                BucketName = "meeting-room-bucket",
+                BucketName = BUCKET_NAME,
                 Key = id.Value, 
             };
 
@@ -43,7 +44,7 @@ namespace S3Infrastructure
         {
             GetObjectRequest request = new GetObjectRequest()
             {
-                BucketName = "meeting-room-bucket",
+                BucketName = BUCKET_NAME,
                 Key = id.Value,
             };
             try {
@@ -80,7 +81,7 @@ namespace S3Infrastructure
         {
             GetObjectRequest request = new GetObjectRequest
             {
-                BucketName = "meeting-room", 
+                BucketName = BUCKET_NAME, 
             };
             try {
                 var obj = client.GetObjectAsync(request);
@@ -112,7 +113,7 @@ namespace S3Infrastructure
             string data = DynamicJson.Serialize(model);
             PutObjectRequest request = new PutObjectRequest
             {
-                BucketName = "meeting-room-bucket",
+                BucketName = BUCKET_NAME,
                 Key = reserve.Id.Value,
                 ContentType = "text/text",
                 ContentBody = data

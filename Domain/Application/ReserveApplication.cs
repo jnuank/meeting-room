@@ -92,6 +92,7 @@ namespace modeling_mtg_room.Domain.Application
 
             var reserve = new Reserve(mtgRoom, timeSpan, reserver, id);
 
+            // todo: 予約の重複を確認するために、重複しているであろうデータの抽出を行う必要がある
             //if(reserveService.IsOverlap(reserve))
             //    throw new Exception("予約が重なっています");
             
@@ -119,10 +120,48 @@ namespace modeling_mtg_room.Domain.Application
             };
         }
 
-        public async Task DeleteReserveAsync(string id)
+        /// <summary>
+        /// 予約のキャンセルをする
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task CancelReserveAsync(string id)
         {
             await repository.DeleteAsync(new ReserveId(id));
         }
 
+        public async Task<string> ModifyReserveAsync(string id,
+                                                            string room,
+                                                            int startYear, int startMonth, int startDay, int startHour, int startMinute,
+                                                            int endYear, int endMonth, int endDay, int endHour, int endMinute,
+                                                            int reserverOfNumber,
+                                                            string reserverId)
+        {
+            
+            Reserve data = await repository.FindAsync(new ReserveId(id));
+
+            //todo: これは正常系の失敗なので、どう扱うべきか悩ましい            
+            if(data == null)
+                throw new ApplicationException("指定した予約が存在しません");
+
+            MeetingRooms mtgRoom;
+            if(!Enum.TryParse(room, true, out mtgRoom))
+                throw new ApplicationException("指定された会議室が存在しません");
+
+            var startTime = new ReservedTime(startYear, startMonth, startDay, startHour, startMinute, this.dateTime);
+            var endTime   = new ReservedTime(endYear, endMonth, endDay, endHour, endMinute, this.dateTime);
+
+            var reserve = new Reserve(new ReserveId(id),
+                                        mtgRoom,
+                                        new ReservedTimeSpan(startTime, endTime),
+                                        new ReserverOfNumber(reserverOfNumber),
+                                        new ReserverId(reserverId));
+            
+            // todo: ここで重複チェックをする
+            // memo: 重複以外のチェックは、ドメインオブジェクトの中で担保ができている状態
+            await repository.SaveAsync(reserve);
+
+            return id;
+        }
     }
 }
