@@ -6,6 +6,8 @@ using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon;
 using System.Threading.Tasks;
+using Amazon.S3.Transfer;
+using Codeplex.Data;
 
 namespace S3Infrastructure
 {
@@ -56,12 +58,16 @@ namespace S3Infrastructure
 
         public async Task SaveAsync(Reserve reserve)
         {
+            Console.WriteLine("SaveAsync");
+            string data = DynamicJson.Serialize(reserve);
+            Console.WriteLine(data);
             PutObjectRequest request = new PutObjectRequest
             {
                 BucketName = "meeting-room-bucket",
-                Key = "hello.txt",
-                ContentType = "text/plain",
-                ContentBody = "Hello World!"
+                Key = reserve.Id.Value,
+                ContentType = "text/text",
+                ContentBody = data
+                //ContentBody = "Hello World!"
             };
             Console.WriteLine(request.ToString());
             try { 
