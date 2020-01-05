@@ -2,6 +2,7 @@ using Amazon.Lambda.Core;
 using System;
 using modeling_mtg_room.Domain.Reserve;
 using InMemoryInfrastructure;
+using S3Infrastructure;
 using Newtonsoft.Json;
 using System.Net;
 using System.Collections.Generic;
@@ -19,7 +20,8 @@ namespace AwsDotnetCsharp
     {
         public async Task<LambdaResponse> Hello(Stream input, ILambdaContext context)
         {
-            var repository = new InMemoryReserveRepository();
+            //var repository = new InMemoryReserveRepository();
+            var repository = new S3ReserveRepository();
             // ユースケースを実行する
             var reader = new StreamReader(input);
             var val = await reader.ReadToEndAsync();
@@ -33,13 +35,13 @@ namespace AwsDotnetCsharp
 
             try {
                 var usecase = new ReserveApplication(repository);
-                var id = usecase.ReserveMeetingRoom(body["room"],
+                var id = await usecase.ReserveMeetingRoomAsync(body["room"],
                                                     start.Year,start.Month,start.Day,start.Hour,start.Minute,
                                                     end.Year,end.Month,end.Day,end.Hour,end.Minute,
                                                     int.Parse(body["reserverOfNumber"]),
                                                     body["reserverId"]);
 
-                Reserve reserve = repository.Find(id);
+                // Reserve reserve = repository.Find(id);
 
                 return new LambdaResponse {
                     StatusCode = HttpStatusCode.OK,
@@ -47,7 +49,7 @@ namespace AwsDotnetCsharp
                     Body = JsonConvert.SerializeObject(
                         new ResponseParam 
                         {
-                            Room = reserve.Room.ToString()
+                            Room = "A"//reserve.Room.ToString()
                         }
                     )
                 };

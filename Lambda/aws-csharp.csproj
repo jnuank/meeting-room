@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\InMemoryInfrastructure\InMemoryInfrastructure.csproj" />
+    <ProjectReference Include="..\S3Infrastructure\S3Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 
 namespace modeling_mtg_room.Domain.Reserve
 {
@@ -33,7 +34,7 @@ namespace modeling_mtg_room.Domain.Reserve
             var reserve = new Reserve(mtgRoom, timeSpan, reserver, id);
 
             if(reserveService.IsOverlap(reserve))
-                throw new Exception("予約が重なっています");
+               throw new Exception("予約が重なっています");
             
             repository.Save(reserve);
 
@@ -64,6 +65,31 @@ namespace modeling_mtg_room.Domain.Reserve
             
             repository.Save(reserve);
 
+            return reserve.Id;
+        }
+        public async Task<ReserveId> ReserveMeetingRoomAsync(string room,
+                                            int startYear, int startMonth, int startDay, int startHour, int startMinute,
+                                            int endYear, int endMonth, int endDay, int endHour, int endMinute,
+                                            int reserverOfNumber,
+                                            string reserverId)
+        {
+            MeetingRooms mtgRoom;
+            if(!Enum.TryParse(room, true, out mtgRoom))
+                throw new ApplicationException("指定された会議室が存在しません");
+
+            var startTime = new ReservedTime(startYear, startMonth, startDay, startHour, startMinute, this.dateTime);
+            var endTime = new ReservedTime(endYear, endMonth, endDay, endHour, endMinute, this.dateTime);
+            var timeSpan = new ReservedTimeSpan(startTime, endTime);
+            var reserver = new ReserverOfNumber(reserverOfNumber);
+            var id = new ReserverId(reserverId);
+
+            var reserve = new Reserve(mtgRoom, timeSpan, reserver, id);
+
+            //if(reserveService.IsOverlap(reserve))
+            //    throw new Exception("予約が重なっています");
+            
+            await repository.SaveAsync(reserve);
+            
             return reserve.Id;
         }
     }
