@@ -1,6 +1,6 @@
 using System;
 
-namespace modeling_mtg_room.Domain.Reserve
+namespace modeling_mtg_room.Domain.Reserves
 {
     public class ReserverId 
     {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using modeling_mtg_room.Domain.Reserve;
+using modeling_mtg_room.Domain.Repository;
+using modeling_mtg_room.Domain.Reserves;
 using System.Linq;
 using System.Threading.Tasks;
 

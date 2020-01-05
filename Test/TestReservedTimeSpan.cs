@@ -1,6 +1,6 @@
 using System;
 using Xunit;
-using modeling_mtg_room.Domain.Reserve;
+using modeling_mtg_room.Domain.Reserves;
 using Moq;
 using System.Collections.Generic;
 

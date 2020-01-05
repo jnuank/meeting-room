@@ -1,8 +1,9 @@
 
 using System;
 using System.Linq;
+using modeling_mtg_room.Domain.Repository;
 
-namespace modeling_mtg_room.Domain.Reserve
+namespace modeling_mtg_room.Domain.Reserves
 {
     internal class ReserveService
     {
@@ -23,7 +24,6 @@ namespace modeling_mtg_room.Domain.Reserve
             MeetingRooms room = reserve.Room;
             var list = repository.FindOfRoom(room);
             return list.Any(x => reserve.TimeSpan.IsOverlap(x.TimeSpan));
-            // todo: 仮実装
         }
     }
 }

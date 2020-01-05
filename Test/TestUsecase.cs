@@ -1,6 +1,8 @@
 using System;
 using Xunit;
-using modeling_mtg_room.Domain.Reserve;
+using modeling_mtg_room.Domain.Reserves;
+using modeling_mtg_room.Domain.Application;
+using modeling_mtg_room.Domain.Repository;
 using Moq;
 using InMemoryInfrastructure;
 
@@ -27,9 +29,9 @@ namespace modeling_mtg_room.Test
                                         2020, 2, 1, 13, 15,
                                         reserverOfNumber,
                                         reserverId);
-            var よやく = repository.Find(id);
+            var よやく = repository.Find(new ReserveId(id));
             Assert.NotNull(よやく);
-            Assert.True(よやく.Id == id);
+            Assert.True(よやく.Id == new ReserveId(id));
         }
         [Theory]
         [InlineData(2020, 2, 1, 12, 45,
@@ -59,7 +61,7 @@ namespace modeling_mtg_room.Test
                                         reserverOfNumber,
                                         reserverId);
 
-            var よやく = repository.Find(id);
+            var よやく = repository.Find(new ReserveId(id));
             string room2 = "a";
             int reserverOfNumber2 = 3;
             string reserverId2 = "eeeeee";
@@ -111,9 +113,9 @@ namespace modeling_mtg_room.Test
                                                 reserverId2);
 
 
-            var よやく = repository.Find(id2);
+            var よやく = repository.Find(new ReserveId(id2));
             Assert.NotNull(よやく);
-            Assert.True(よやく.Id == id2);
+            Assert.True(よやく.Id == new ReserveId(id2));
         }
         [Theory]
         [InlineData(2020, 2, 1, 10, 0, 6, 1.5)]
@@ -136,9 +138,9 @@ namespace modeling_mtg_room.Test
                                         timeBlock,
                                         reserverOfNumber,
                                         reserverId);
-            var よやく = repository.Find(id);
+            var よやく = repository.Find(new ReserveId(id));
             Assert.NotNull(よやく);
-            Assert.True(よやく.Id == id);
+            Assert.True(よやく.Id == new ReserveId(id));
             Assert.Equal(expected, よやく.TimeSpan.TimeOfNumber);
         }
     }

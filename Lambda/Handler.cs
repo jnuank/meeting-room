@@ -1,6 +1,5 @@
 using Amazon.Lambda.Core;
 using System;
-using modeling_mtg_room.Domain.Reserve;
 using S3Infrastructure;
 using Newtonsoft.Json;
 using System.Net;
@@ -8,6 +7,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Codeplex.Data;
+using modeling_mtg_room.Domain.Application;
+using modeling_mtg_room.Domain.Repository;
+using modeling_mtg_room.Domain.Application.Models;
 
 
 [assembly:LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
@@ -17,13 +19,14 @@ namespace AwsDotnetCsharp
     public class Handler
     {
         private readonly IReserveRepository repository;
+        private readonly ReserveApplication usecase;
         public Handler()
         {
             repository = new S3ReserveRepository();
+            usecase = new ReserveApplication(repository);
         }
         public async Task<LambdaResponse> Hello(Stream input, ILambdaContext context)
         {
-            // ユースケースを実行する
             var reader = new StreamReader(input);
             var val = await reader.ReadToEndAsync();
 
@@ -36,8 +39,7 @@ namespace AwsDotnetCsharp
             DateTime end   = DateTime.Parse(body["endDateTime"]  , null, System.Globalization.DateTimeStyles.RoundtripKind);
 
             try {
-                var usecase = new ReserveApplication(repository);
-                ReserveId id = await usecase.ReserveMeetingRoomAsync(body["room"],
+                string id = await usecase.ReserveMeetingRoomAsync(body["room"],
                                                     start.Year,start.Month,start.Day,start.Hour,start.Minute,
                                                     end.Year,end.Month,end.Day,end.Hour,end.Minute,
                                                     int.Parse(body["reserverOfNumber"]),
@@ -49,7 +51,7 @@ namespace AwsDotnetCsharp
                     Body = JsonConvert.SerializeObject(
                         new ResponseParam 
                         {
-                            ReserveId = id.Value
+                            ReserveId = id
                         }
                     )
                 };
@@ -75,7 +77,7 @@ namespace AwsDotnetCsharp
             dynamic obj = DynamicJson.Parse(val);
             string id   = obj["pathParameters"]["reserveId"];
 
-            Reserve reserve = await repository.FindAsync(new ReserveId(id));
+            ReserveModel reserve = await usecase.FindReserve(id);
 
             return new LambdaResponse {
                 StatusCode = HttpStatusCode.OK,
@@ -83,8 +85,8 @@ namespace AwsDotnetCsharp
                 Body = JsonConvert.SerializeObject(
                     new ResponseParam 
                     {
-                        ReserveId = reserve.Id.Value,
-                        Room = reserve.Room.ToString()
+                        ReserveId = reserve.Id,
+                        Room = reserve.Room
                     }
                 )
             }; 

@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using modeling_mtg_room.Domain.Reserve;
+using modeling_mtg_room.Domain.Reserves;
 
-namespace modeling_mtg_room.Domain.Reserve
+namespace modeling_mtg_room.Domain.Repository
 {
     public interface IReserveRepository
     {
