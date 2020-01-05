@@ -19,7 +19,7 @@ functions:
     handler: CsharpHandlers::AwsDotnetCsharp.Handler::Hello
     events:
       - http:
-          path: hello
+          path: post
           method: post
 
     # you can add packaging information here
@@ -31,7 +31,7 @@ functions:
     handler: CsharpHandlers::AwsDotnetCsharp.Handler::GetReserve
     events:
       - http:
-          path: hello/{reserveId}
+          path: get/{reserveId}
           method: get
     role: !GetAtt lambdaHelloRole.Arn
 
