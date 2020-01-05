@@ -16,6 +16,11 @@ namespace InMemoryInfrastructure
             throw new NotImplementedException();
         }
 
+        public Task<bool> ExistsAsync(ReserveId id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Reserve Find(ReserveId id)
         {
             if(data.TryGetValue(id, out var target))

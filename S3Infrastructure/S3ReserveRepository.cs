@@ -38,6 +38,28 @@ namespace S3Infrastructure
             }
         }
 
+        public async Task<bool> ExistsAsync(ReserveId id)
+        {
+            try
+            {
+                var data = await this.FindAsync(id);
+                return data != null;
+            }
+            catch (AmazonS3Exception ex)
+            {
+                Console.WriteLine("Existsキャッチ");
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                return !(ex.Message == "The specified key does not exist.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                throw ex;
+            }
+        }
+
         public Reserve Find(ReserveId id) => throw new NotImplementedException();
 
         public async Task<Reserve> FindAsync(ReserveId id)
@@ -70,7 +92,7 @@ namespace S3Infrastructure
                     return new Reserve(id, mtgRoom, timeSpan, reserver, reserverId);
                 }
             }catch (Exception ex){
-                Console.WriteLine("Getエラー");
+                Console.WriteLine("FindAsyncエラー");
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
                 throw ex;

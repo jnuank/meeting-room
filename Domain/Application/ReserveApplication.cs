@@ -138,10 +138,10 @@ namespace modeling_mtg_room.Domain.Application
                                                             string reserverId)
         {
             
-            Reserve data = await repository.FindAsync(new ReserveId(id));
+            bool data = await repository.ExistsAsync(new ReserveId(id));
 
             //todo: これは正常系の失敗なので、どう扱うべきか悩ましい            
-            if(data == null)
+            if(!data)
                 throw new ApplicationException("指定した予約が存在しません");
 
             MeetingRooms mtgRoom;
