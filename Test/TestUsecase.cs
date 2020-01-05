@@ -31,7 +31,7 @@ namespace modeling_mtg_room.Test
                                         reserverId);
             var よやく = repository.Find(new ReserveId(id));
             Assert.NotNull(よやく);
-            Assert.True(よやく.Id == new ReserveId(id));
+            Assert.True(よやく.Id.Equals(new ReserveId(id)));
         }
         [Theory]
         [InlineData(2020, 2, 1, 12, 45,
@@ -115,7 +115,7 @@ namespace modeling_mtg_room.Test
 
             var よやく = repository.Find(new ReserveId(id2));
             Assert.NotNull(よやく);
-            Assert.True(よやく.Id == new ReserveId(id2));
+            Assert.True(よやく.Id.Equals(new ReserveId(id2)));
         }
         [Theory]
         [InlineData(2020, 2, 1, 10, 0, 6, 1.5)]
@@ -140,7 +140,7 @@ namespace modeling_mtg_room.Test
                                         reserverId);
             var よやく = repository.Find(new ReserveId(id));
             Assert.NotNull(よやく);
-            Assert.True(よやく.Id == new ReserveId(id));
+            Assert.True(よやく.Id.Equals(new ReserveId(id)));
             Assert.Equal(expected, よやく.TimeSpan.TimeOfNumber);
         }
     }
