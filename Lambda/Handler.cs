@@ -1,14 +1,12 @@
 using Amazon.Lambda.Core;
 using System;
 using modeling_mtg_room.Domain.Reserve;
-using InMemoryInfrastructure;
 using S3Infrastructure;
 using Newtonsoft.Json;
 using System.Net;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using System.Runtime.Serialization.Json;
 using Codeplex.Data;
 
 
@@ -39,13 +37,11 @@ namespace AwsDotnetCsharp
 
             try {
                 var usecase = new ReserveApplication(repository);
-                var id = await usecase.ReserveMeetingRoomAsync(body["room"],
+                ReserveId id = await usecase.ReserveMeetingRoomAsync(body["room"],
                                                     start.Year,start.Month,start.Day,start.Hour,start.Minute,
                                                     end.Year,end.Month,end.Day,end.Hour,end.Minute,
                                                     int.Parse(body["reserverOfNumber"]),
                                                     body["reserverId"]);
-
-                // Reserve reserve = repository.Find(id);
 
                 return new LambdaResponse {
                     StatusCode = HttpStatusCode.OK,
@@ -53,7 +49,7 @@ namespace AwsDotnetCsharp
                     Body = JsonConvert.SerializeObject(
                         new ResponseParam 
                         {
-                            Room = "A"//reserve.Room.ToString()
+                            ReserveId = id.Value
                         }
                     )
                 };
@@ -82,17 +78,16 @@ namespace AwsDotnetCsharp
             Reserve reserve = await repository.FindAsync(new ReserveId(id));
 
             return new LambdaResponse {
-                    StatusCode = HttpStatusCode.OK,
-                    Headers = null,
-                    Body = JsonConvert.SerializeObject(
-                        new ResponseParam 
-                        {
-                            ReserveId = reserve.Id.Value,
-                            Room = reserve.Room.ToString()
-                        }
-                    )
-                }; 
-
+                StatusCode = HttpStatusCode.OK,
+                Headers = null,
+                Body = JsonConvert.SerializeObject(
+                    new ResponseParam 
+                    {
+                        ReserveId = reserve.Id.Value,
+                        Room = reserve.Room.ToString()
+                    }
+                )
+            }; 
         }
     }
 

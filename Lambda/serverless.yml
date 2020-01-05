@@ -11,6 +11,7 @@ provider:
         TZ: Asia/Tokyo
 
 package:
+  artifact: bin/release/netcoreapp2.1/hello.zip
   individually: true
 
 functions:
@@ -22,8 +23,6 @@ functions:
           method: post
 
     # you can add packaging information here
-    package:
-      artifact: bin/release/netcoreapp2.1/hello.zip
     #  exclude:
     #    - exclude-me.js
     #    - exclude-me-dir/**
@@ -34,8 +33,6 @@ functions:
       - http:
           path: hello/{reserveId}
           method: get
-    package:
-      artifact: bin/release/netcoreapp2.1/hello.zip
     role: !GetAtt lambdaHelloRole.Arn
 
 resources:

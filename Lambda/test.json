@@ -1,7 +1,7 @@
 {
   "room": "b",
-  "startDateTime": "2020-1-19T11:00:40+09:00",
-  "endDateTime": "2020-1-19T13:00:40+09:00",
-  "reserverOfNumber": "10",
+  "startDateTime": "2020-1-20T11:00:40+09:00",
+  "endDateTime": "2020-1-20T13:45:40+09:00",
+  "reserverOfNumber": "8",
   "reserverId": "abcdef"
 }
