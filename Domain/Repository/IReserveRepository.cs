@@ -14,5 +14,7 @@ namespace modeling_mtg_room.Domain.Repository
         Task<Reserve> FindAsync(ReserveId id);
 
         IEnumerable<Reserve> FindOfRoom(MeetingRooms room);
+
+        Task DeleteAsync(ReserveId id);
     }
 }

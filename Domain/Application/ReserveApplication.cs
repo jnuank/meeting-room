@@ -100,7 +100,12 @@ namespace modeling_mtg_room.Domain.Application
             return reserve.Id.Value;
         }
 
-        public async Task<ReserveModel> FindReserve(string id)
+        /// <summary>
+        /// 予約情報を探す
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<ReserveModel> FindReserveAsync(string id)
         {
             Reserve reserve = await repository.FindAsync(new ReserveId(id));
             return new ReserveModel 
@@ -112,6 +117,11 @@ namespace modeling_mtg_room.Domain.Application
                 EndDate = reserve.TimeSpan._end.Value.ToString("o"),
                 Room = reserve.Room.ToString()
             };
+        }
+
+        public async Task DeleteReserveAsync(string id)
+        {
+            await repository.DeleteAsync(new ReserveId(id));
         }
 
     }

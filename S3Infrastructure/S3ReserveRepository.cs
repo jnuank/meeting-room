@@ -20,6 +20,23 @@ namespace S3Infrastructure
             client = new AmazonS3Client(RegionEndpoint.APNortheast1);
         }
 
+        public async Task DeleteAsync(ReserveId id)
+        {
+            DeleteObjectRequest request = new DeleteObjectRequest()
+            {
+                BucketName = "meeting-room-bucket",
+                Key = id.Value, 
+            };
+
+            try{
+                await client.DeleteObjectAsync(request);
+            }catch (Exception ex){
+                Console.WriteLine("Deleteエラー");
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+            }
+        }
+
         public Reserve Find(ReserveId id) => throw new NotImplementedException();
 
         public async Task<Reserve> FindAsync(ReserveId id)

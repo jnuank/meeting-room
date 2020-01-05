@@ -77,7 +77,7 @@ namespace AwsDotnetCsharp
             dynamic obj = DynamicJson.Parse(val);
             string id   = obj["pathParameters"]["reserveId"];
 
-            ReserveModel reserve = await usecase.FindReserve(id);
+            ReserveModel reserve = await usecase.FindReserveAsync(id);
 
             return new LambdaResponse {
                 StatusCode = HttpStatusCode.OK,
@@ -88,6 +88,22 @@ namespace AwsDotnetCsharp
                         ReserveId = reserve.Id,
                         Room = reserve.Room
                     }
+                )
+            }; 
+        }
+        public async Task<LambdaResponse> DeleteReserve(Stream input, ILambdaContext context)
+        {
+            var reader  = new StreamReader(input);
+            string val  = await reader.ReadToEndAsync();
+            dynamic obj = DynamicJson.Parse(val);
+            string id   = obj["pathParameters"]["reserveId"];
+
+            await usecase.DeleteReserveAsync(id);
+            return new LambdaResponse {
+                StatusCode = HttpStatusCode.OK,
+                Headers = null,
+                Body = JsonConvert.SerializeObject(
+                    new ResponseParam()
                 )
             }; 
         }

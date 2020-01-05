@@ -10,6 +10,12 @@ namespace InMemoryInfrastructure
     public class InMemoryReserveRepository : IReserveRepository
     {
         private readonly Dictionary<ReserveId, Reserve> data = new Dictionary<ReserveId, Reserve>();
+
+        public Task DeleteAsync(ReserveId id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Reserve Find(ReserveId id)
         {
             if(data.TryGetValue(id, out var target))
