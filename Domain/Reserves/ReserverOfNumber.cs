@@ -14,5 +14,9 @@ namespace modeling_mtg_room.Domain.Reserves
 
             this.Value = value;
         }
+        public string ValueString
+        {
+            get { return this.Value.ToString(); }
+        }
     }
 }

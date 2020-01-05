@@ -126,8 +126,8 @@ namespace S3Infrastructure
             {
                 ReserverId = reserve.ReserverId.Value,
                 Room = reserve.Room.ToString(),
-                StartDate = reserve.TimeSpan._start.Value.ToString("o"),
-                EndDate = reserve.TimeSpan._end.Value.ToString("o"),
+                StartDate = reserve.TimeSpan.StartDateString,
+                EndDate = reserve.TimeSpan.EndDateString,
                 Id = reserve.Id.Value,
                 ReserveOfNumber = reserve.ReserverOfNumber.Value.ToString()
             };

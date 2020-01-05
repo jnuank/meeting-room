@@ -11,9 +11,9 @@ namespace modeling_mtg_room.Domain.Reserves
         // DateTimeを受け取るインターフェース
         private IDateTime _dateTime;
         // 開始時間
-        public ReservedTime _start;
+        private ReservedTime _start;
         // 終了時間
-        public ReservedTime _end;
+        private ReservedTime _end;
         public ReservedTimeSpan(ReservedTime start,
                                 ReservedTime end)
         {
@@ -85,6 +85,14 @@ namespace modeling_mtg_room.Domain.Reserves
             bool isOverlap = (this._start.Value >= other._start.Value && this._start.Value < other._end.Value)
                             || (this._start.Value <= other._start.Value && this._end.Value > other._start.Value);
             return isOverlap;
+        }
+        public string StartDateString
+        {
+            get { return this._start.Value.ToString("o"); }
+        }
+        public string EndDateString
+        {
+            get { return this._end.Value.ToString("o"); }
         }
     }
 }

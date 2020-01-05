@@ -1,6 +1,9 @@
 using System;
 namespace modeling_mtg_room.Domain.Reserves
 {
+    /// <summary>
+    /// 予約エンティティ
+    /// </summary>
     public class Reserve
     {
         public ReserveId Id { get; }

@@ -111,12 +111,12 @@ namespace modeling_mtg_room.Domain.Application
             Reserve reserve = await repository.FindAsync(new ReserveId(id));
             return new ReserveModel 
             {
-                Id = reserve.Id.Value,
-                ReserverId = reserve.ReserverId.Value,
-                ReserveOfNumber = reserve.ReserverOfNumber.Value.ToString(),
-                StartDate = reserve.TimeSpan._start.Value.ToString("o"),
-                EndDate = reserve.TimeSpan._end.Value.ToString("o"),
-                Room = reserve.Room.ToString()
+                Id              = reserve.Id.Value,
+                ReserverId      = reserve.ReserverId.Value,
+                ReserveOfNumber = reserve.ReserverOfNumber.ValueString,
+                StartDate       = reserve.TimeSpan.StartDateString,
+                EndDate         = reserve.TimeSpan.EndDateString,
+                Room            = reserve.Room.ToString()
             };
         }
 
@@ -137,6 +137,9 @@ namespace modeling_mtg_room.Domain.Application
                                                             int reserverOfNumber,
                                                             string reserverId)
         {
+            // todo:ここの動きはおかしくて、
+            // 本来はデータをリポジトリから取得してきたあとに、
+            // Changeメソッドなど呼んで修正をするべき
             
             bool data = await repository.ExistsAsync(new ReserveId(id));
 
