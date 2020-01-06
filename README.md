@@ -170,4 +170,11 @@
 
 
 
+---
+
+# プロジェクト間の依存構成
+
+![image](https://user-images.githubusercontent.com/33717710/71788536-a918e580-3066-11ea-8754-576b81383071.png)
+
+
 以上
