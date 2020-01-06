@@ -4,6 +4,18 @@ provider:
   name: aws
   runtime: dotnetcore2.1
 
+  iamRoleStatements:
+    - 
+      Effect: Allow
+      Action:
+        - s3:PutObject
+        - s3:ListBucket
+        - s3:GetObject
+        - s3:DeleteObject
+        - s3:CreateBucket
+      Resource: '*'
+
+
 # you can overwrite defaults here
   stage: dev
   region: ap-northeast-1
@@ -16,79 +28,26 @@ package:
 
 functions:
   hello:
-    handler: CsharpHandlers::AwsDotnetCsharp.Handler::Hello
+    handler: CsharpHandlers::AwsDotnetCsharp.Handler::Reserve
     events:
       - http:
           path: post
           method: post
-
-    # you can add packaging information here
-    #  exclude:
-    #    - exclude-me.js
-    #    - exclude-me-dir/**
-    role: !GetAtt lambdaHelloRole.Arn
   getReserve:
     handler: CsharpHandlers::AwsDotnetCsharp.Handler::GetReserve
     events:
       - http:
           path: get/{reserveId}
           method: get
-    role: !GetAtt lambdaHelloRole.Arn
   modifyReserve:
     handler: CsharpHandlers::AwsDotnetCsharp.Handler::ModifyReserve
     events:
       - http:
           path: modify
           method: put
-    role: !GetAtt lambdaHelloRole.Arn 
   deleteReseve:
     handler: CsharpHandlers::AwsDotnetCsharp.Handler::DeleteReserve
     events:
       - http:
           path: delete/{reserveId}
           method: delete
-    role: !GetAtt lambdaHelloRole.Arn 
-
-resources:
-  Resources:
-    MeetingRoomBucket:
-      Type: 'AWS::S3::Bucket'
-      Properties:
-        BucketName: meeting-room-bucket
-    
-    lambdaHelloRole:
-      Type: AWS::IAM::Role
-      Properties:
-        RoleName: LambdaHelloRole
-        AssumeRolePolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-            - Effect: Allow
-              Principal:
-                Service:
-                  - lambda.amazonaws.com
-              Action: sts:AssumeRole
-        Policies:
-          - PolicyName: lambdaPolicyName
-            PolicyDocument:
-              Version: '2012-10-17'
-              Statement:
-                - 
-                  Effect: Allow
-                  Action:
-                    - s3:*
-                    # - s3:PutObject
-                    # - s3:ListBucket
-                    # - s3:GetObject
-                    # - s3:DeleteObject
-                    # - s3:CreateBucket
-                  Resource: '*'
-                - 
-                  Effect: Allow
-                  Action:
-                    - logs:CreateLogGroup
-                    - logs:CreateLogStream
-                    - logs:PutLogEvents
-                    - logs:DescribeLogGroups
-                    - logs:PutSubscriptionFilter
-                  Resource: '*'

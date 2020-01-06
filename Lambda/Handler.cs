@@ -25,7 +25,7 @@ namespace AwsDotnetCsharp
             repository = new S3ReserveRepository();
             usecase = new ReserveApplication(repository);
         }
-        public async Task<LambdaResponse> Hello(Stream input, ILambdaContext context)
+        public async Task<LambdaResponse> Reserve(Stream input, ILambdaContext context)
         {
             var reader = new StreamReader(input);
             var val = await reader.ReadToEndAsync();
