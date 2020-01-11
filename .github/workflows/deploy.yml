@@ -36,5 +36,7 @@ jobs:
           cd Lambda 
           ./build.sh
       - name: Deploy
-        run: sls deploy 
+        run: |
+          cd Lambda
+          sls deploy 
 
