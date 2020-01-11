@@ -5,7 +5,7 @@ name: Check
 jobs:
   build:
     runs-on: ubuntu-16.04    
-    name: Dotnet ${{ matrix.dotnet }} sample
+    name: Dotnet build Check
     steps:
       # PRしてきたブランチのソースコードがチェックアウトされる
       - uses: actions/checkout@v2
