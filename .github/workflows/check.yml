@@ -4,10 +4,7 @@ name: Check
 
 jobs:
   build:
-    runs-on: ubuntu-16.04
-    strategy:
-      matrix:
-        dotnet: [ '2.2.103', '3.0.100', '3.1.100' ]
+    runs-on: ubuntu-16.04    
     name: Dotnet ${{ matrix.dotnet }} sample
     steps:
       # PRしてきたブランチのソースコードがチェックアウトされる
@@ -17,7 +14,7 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: ${{ matrix.dotnet }}
+          dotnet-version: '2.0.0'
       
       - run: |
           cd Lambda 
