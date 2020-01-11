@@ -26,7 +26,6 @@ jobs:
       - name: Install Serverless
         run: |
           npm install -g serverless
-          sls plugin install -n serverless-python-requirements
 
       # dotnet
       - name: Setup dotnet
