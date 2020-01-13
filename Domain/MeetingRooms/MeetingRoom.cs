@@ -38,6 +38,5 @@ namespace Domain.MeetingRooms
             return true;
         }
         
-        // 会議室に持たせたい振る舞いとは何。
     }
 }

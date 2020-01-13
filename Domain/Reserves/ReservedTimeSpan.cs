@@ -8,8 +8,6 @@ namespace modeling_mtg_room.Domain.Reserves
     /// </summary>
     public class ReservedTimeSpan : IEquatable<ReservedTimeSpan>
     {
-        // DateTimeを受け取るインターフェース
-        private IDateTime _dateTime;
         // 開始時間
         private ReservedTime _start;
         // 終了時間

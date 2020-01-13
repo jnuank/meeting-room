@@ -1,5 +1,5 @@
 
-namespace Domain.Usage
+namespace Domain.Usages
 {
     public interface IUsageRepository
     {

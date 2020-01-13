@@ -1,5 +1,5 @@
 using System;
-using Domain.Usage;
+using Domain.Usages;
 
 
 namespace Domain.Application
