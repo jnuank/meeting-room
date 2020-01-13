@@ -1,5 +1,5 @@
 using System;
-namespace modeling_mtg_room.Domain.Reserves
+namespace Domain.Reserves
 {
     public class ReserveId : IEquatable<ReserveId>
     {

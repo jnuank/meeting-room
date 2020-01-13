@@ -1,10 +1,10 @@
 using System;
 using Xunit;
-using modeling_mtg_room.Domain.Reserves;
+using Domain.Reserves;
 using Moq;
 using System.Collections.Generic;
 
-namespace modeling_mtg_room.Test
+namespace Test
 {
     public class TestReservedTimeSpan
     {

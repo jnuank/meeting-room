@@ -1,4 +1,4 @@
-namespace modeling_mtg_room.Domain.Application.Models
+namespace Domain.Application.Models
 {
     public class ReserveModel
     {

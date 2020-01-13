@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using modeling_mtg_room.Domain.Reserves;
+using Domain.Reserves;
 
-namespace modeling_mtg_room.Domain.Repository
+namespace Domain.Repository
 {
     public interface IReserveRepository 
     {
@@ -10,7 +10,7 @@ namespace modeling_mtg_room.Domain.Repository
         void Save(Reserve reserve);
         Reserve Find(ReserveId id);
         Task<Reserve> FindAsync(ReserveId id);
-        IEnumerable<Reserve> FindOfRoom(MeetingRooms room);
+        IEnumerable<Reserve> FindOfRoom(Domain.Reserves.MeetingRooms room);
         Task DeleteAsync(ReserveId id);
         Task<bool> ExistsAsync(ReserveId id);
     }

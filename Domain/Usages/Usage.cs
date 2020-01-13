@@ -1,5 +1,5 @@
 using System;
-using modeling_mtg_room.Domain.Reserves;
+using Domain.Reserves;
 
 namespace Domain.Usages
 {
@@ -10,7 +10,7 @@ namespace Domain.Usages
     {
         public readonly DateTime startDateTime;
         public readonly DateTime endDateTime;
-        public readonly modeling_mtg_room.Domain.Reserves.MeetingRooms room;
-        
+        public readonly Domain.Reserves.MeetingRooms room;
+
     }
 }

@@ -1,10 +1,10 @@
 using System;
 using System.Threading.Tasks;
-using modeling_mtg_room.Domain.Reserves;
-using modeling_mtg_room.Domain.Repository;
-using modeling_mtg_room.Domain.Application.Models;
+using Domain.Reserves;
+using Domain.Repository;
+using Domain.Application.Models;
 
-namespace modeling_mtg_room.Domain.Application
+namespace Domain.Application
 {
     public class ReserveApplication
     {
@@ -24,7 +24,7 @@ namespace modeling_mtg_room.Domain.Application
                                             int reserverOfNumber,
                                             string reserverId)
         {
-            MeetingRooms mtgRoom;
+            Reserves.MeetingRooms mtgRoom;
             if(!Enum.TryParse(room, true, out mtgRoom))
                 throw new ApplicationException("指定された会議室が存在しません");
 
@@ -52,7 +52,7 @@ namespace modeling_mtg_room.Domain.Application
                                             int reserverOfNumber,
                                             string reserverId)
         {
-            MeetingRooms mtgRoom;
+            Reserves.MeetingRooms mtgRoom;
             if(!Enum.TryParse(room, true, out mtgRoom))
                 throw new ApplicationException("指定された会議室が存在しません");
 
@@ -80,7 +80,7 @@ namespace modeling_mtg_room.Domain.Application
                                             int reserverOfNumber,
                                             string reserverId)
         {
-            MeetingRooms mtgRoom;
+            Reserves.MeetingRooms mtgRoom;
             if(!Enum.TryParse(room, true, out mtgRoom))
                 throw new ApplicationException("指定された会議室が存在しません");
 
@@ -147,7 +147,7 @@ namespace modeling_mtg_room.Domain.Application
             if(!data)
                 throw new ApplicationException("指定した予約が存在しません");
 
-            MeetingRooms mtgRoom;
+            Reserves.MeetingRooms mtgRoom;
             if(!Enum.TryParse(room, true, out mtgRoom))
                 throw new ApplicationException("指定された会議室が存在しません");
 

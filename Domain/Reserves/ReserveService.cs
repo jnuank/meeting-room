@@ -1,9 +1,9 @@
 
 using System;
 using System.Linq;
-using modeling_mtg_room.Domain.Repository;
+using Domain.Repository;
 
-namespace modeling_mtg_room.Domain.Reserves
+namespace Domain.Reserves
 {
     internal class ReserveService
     {

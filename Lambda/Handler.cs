@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Codeplex.Data;
-using modeling_mtg_room.Domain.Application;
-using modeling_mtg_room.Domain.Repository;
-using modeling_mtg_room.Domain.Application.Models;
+using Domain.Application;
+using Domain.Repository;
+using Domain.Application.Models;
 
 
 [assembly:LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]

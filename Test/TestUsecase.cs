@@ -1,12 +1,12 @@
 using System;
 using Xunit;
-using modeling_mtg_room.Domain.Reserves;
-using modeling_mtg_room.Domain.Application;
-using modeling_mtg_room.Domain.Repository;
+using Domain.Reserves;
+using Domain.Application;
+using Domain.Repository;
 using Moq;
 using InMemoryInfrastructure;
 
-namespace modeling_mtg_room.Test
+namespace Test
 {
     public class TestUsecase
     {

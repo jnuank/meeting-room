@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace modeling_mtg_room.Domain.Reserves
+namespace Domain.Reserves
 {
     /// <summary>
     /// 会議室オブジェクト

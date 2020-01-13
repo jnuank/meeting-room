@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using modeling_mtg_room.Domain.Reserves;
-using modeling_mtg_room.Domain.Repository;
+using Domain.Reserves;
+using Domain.Repository;
 using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon;
