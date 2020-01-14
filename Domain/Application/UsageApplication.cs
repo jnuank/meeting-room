@@ -19,9 +19,9 @@ namespace Domain.Application
             if(!Enum.TryParse(room, true, out mtgRoom))
                 throw new ApplicationException("指定された会議室が存在しません");
             
-            var rooms = new MeetingRooms.MeetingRoom(mtgRoom.ToString(), MeetingRooms.RoomStatus.VACANCY);
+            // var rooms = new MeetingRooms.MeetingRoom(mtgRoom.ToString(), MeetingRooms.RoomStatus.VACANCY);
 
-            rooms.EnteringRoom();
+            // rooms.EnteringRoom();
         }
 
         public bool 会議室が利用中かどうか確認する(string room)
