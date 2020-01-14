@@ -18,12 +18,11 @@ namespace AwsDotnetCsharp
 {
     public class Handler
     {
-        private readonly IReserveRepository repository;
         private readonly ReserveApplication usecase;
         public Handler()
         {
-            repository = new S3ReserveRepository();
-            usecase = new ReserveApplication(repository);
+            // todo:このPresentation層がS3Infraを知っていていいのか？
+            usecase = new ReserveApplication(new S3ReserveRepository());
         }
         public async Task<LambdaResponse> Reserve(Stream input, ILambdaContext context)
         {

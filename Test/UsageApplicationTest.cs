@@ -29,6 +29,14 @@ namespace Test
 
             Assert.True(flag);
         }
+
+        [Fact]
+        public void 会議室を利用中にした後に利用状況を取得できること()
+        {
+            application.会議室の利用を開始する("A");
+
+            
+        }
     }
 }
 
