@@ -1,5 +1,5 @@
 using System;
-using Domain.Reserves;
+using Domain.MeetingRooms;
 
 namespace Domain.Usages
 {
@@ -10,7 +10,14 @@ namespace Domain.Usages
     {
         public readonly DateTime startDateTime;
         public readonly DateTime endDateTime;
-        public readonly Domain.Reserves.MeetingRooms room;
+        public readonly MeetingRoom room;
+
+        public Usage(DateTime startDateTime, DateTime endDateTime, MeetingRoom room)
+        {
+            this.endDateTime = endDateTime;
+            this.startDateTime = startDateTime;
+            this.room = room;
+        }
 
     }
 }
