@@ -8,7 +8,7 @@ namespace Domain.Usages
     {
         void Save(Usage usage);
 
-        Usage Find(MeetingRoom room, DateTime start, DateTime end);
+        Usage Find(MeetingRoom room, UsageTimeSpan timeSpan);
         
     }
 }
